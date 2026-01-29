@@ -2,7 +2,7 @@ name: flg
 description: >-
   A CLI tool for generating Flutter projects with Clean Architecture,
   feature-first organization, and modern state management (Riverpod, Bloc, Provider).
-version: 1.2.0
+version: 1.2.1
 homepage: https://github.com/saulram/flg
 repository: https://github.com/saulram/flg
 issue_tracker: https://github.com/saulram/flg/issues

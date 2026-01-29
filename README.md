@@ -459,19 +459,35 @@ flg uses absolute package imports (`package:my_app/...`). If you rename your pro
 
 ## AI Assistant Integration
 
-flg integrates with AI assistants like [Claude Code](https://docs.anthropic.com/en/docs/build-with-claude/claude-code) for enhanced productivity.
+flg integrates with AI coding assistants through the **Model Context Protocol (MCP)**, enabling AI assistants to create Flutter projects and generate code directly.
 
-### Claude Code Skill
+> **Key Feature**: When MCP is configured, asking your AI assistant to "create a Flutter project" will automatically use `flg init` instead of `flutter create`, giving you Clean Architecture from the start.
 
-When working in a project with flg installed, the `/flg` skill is available for quick command reference. The skill documentation is in `.claude/skills/flg/SKILL.md`.
+### Supported AI Assistants
 
-### MCP Server
+| Assistant | MCP Support | Configuration |
+|-----------|-------------|---------------|
+| [Claude Code](https://docs.anthropic.com/en/docs/build-with-claude/claude-code) | Yes | Global or per-project |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | Yes | Global or per-project |
 
-flg provides an MCP (Model Context Protocol) server for deeper AI assistant integration. This exposes flg functionality as tools that AI assistants can call directly.
+---
 
-#### Configuration
+### MCP Configuration
 
-Add to your Claude Code MCP configuration (`~/.claude.json` or project settings):
+MCP servers can be configured **globally** (available in all projects) or **per-project** (only in specific projects).
+
+#### Option 1: Global Configuration (Recommended)
+
+Global configuration makes flg available in all your projects.
+
+**Claude Code:**
+
+```bash
+# Using Claude CLI (easiest)
+claude mcp add --scope user flg -- dart run flg:flg_mcp
+```
+
+Or manually edit `~/.claude/settings.json`:
 
 ```json
 {
@@ -484,26 +500,151 @@ Add to your Claude Code MCP configuration (`~/.claude.json` or project settings)
 }
 ```
 
-Or configure via CLI:
+**Gemini CLI:**
 
 ```bash
-claude mcp add --scope user flg -- dart run flg:flg_mcp
+# Using Gemini CLI (easiest)
+gemini mcp add --scope user flg -- dart run flg:flg_mcp
 ```
 
-#### Available MCP Tools
+Or manually edit `~/.gemini/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "flg": {
+      "command": "dart",
+      "args": ["run", "flg:flg_mcp"]
+    }
+  }
+}
+```
+
+#### Option 2: Per-Project Configuration
+
+Per-project configuration limits flg to specific projects. Useful for team projects where you want to ensure consistent tooling.
+
+**Claude Code:**
+
+Create `.mcp.json` in your project root:
+
+```json
+{
+  "mcpServers": {
+    "flg": {
+      "command": "dart",
+      "args": ["run", "flg:flg_mcp"]
+    }
+  }
+}
+```
+
+Or use the CLI:
+
+```bash
+# In your project directory
+claude mcp add --scope project flg -- dart run flg:flg_mcp
+```
+
+**Gemini CLI:**
+
+```bash
+# In your project directory
+gemini mcp add --scope project flg -- dart run flg:flg_mcp
+```
+
+Or create `.gemini/settings.json` in your project root:
+
+```json
+{
+  "mcpServers": {
+    "flg": {
+      "command": "dart",
+      "args": ["run", "flg:flg_mcp"]
+    }
+  }
+}
+```
+
+#### Configuration Precedence
+
+When both global and per-project configurations exist:
+- **Per-project** settings take precedence over global settings
+- This allows you to override or disable specific MCP servers per project
+
+---
+
+### Available MCP Tools
+
+Once configured, your AI assistant can use these tools:
 
 | Tool | Description |
 |------|-------------|
-| `flg_generate_feature` | Generate a complete feature module |
+| `flg_init` | **Create a new Flutter project** with Clean Architecture (use instead of `flutter create`) |
+| `flg_setup` | Setup flg in an existing Flutter project |
+| `flg_generate_feature` | Generate a complete feature module with all layers |
 | `flg_generate_screen` | Generate a screen widget |
-| `flg_generate_widget` | Generate a widget |
+| `flg_generate_widget` | Generate a widget (stateless, stateful, card, list_tile, form) |
 | `flg_generate_provider` | Generate provider/notifier/bloc |
-| `flg_generate_usecase` | Generate use cases |
-| `flg_generate_repository` | Generate repository |
-| `flg_setup` | Setup flg in existing project |
+| `flg_generate_usecase` | Generate use cases (single or CRUD) |
+| `flg_generate_repository` | Generate repository interface and implementation |
 | `flg_info` | Show project configuration |
 
 Each tool accepts a `path` parameter to specify the Flutter project directory (defaults to current directory).
+
+---
+
+### Usage Examples
+
+Once MCP is configured, you can interact naturally with your AI assistant:
+
+```
+User: Create a new Flutter app called "todo_app" with Bloc
+
+AI: [Uses flg_init to create the project with Clean Architecture and Bloc]
+```
+
+```
+User: Generate an auth feature for my app
+
+AI: [Uses flg_generate_feature to create the complete auth module]
+```
+
+```
+User: Add a login screen to the auth feature
+
+AI: [Uses flg_generate_screen to create login_screen.dart]
+```
+
+---
+
+### Verifying MCP Configuration
+
+**Claude Code:**
+
+```bash
+# List all configured MCP servers
+claude mcp list
+
+# Test the flg server
+claude mcp run flg flg_info
+```
+
+**Gemini CLI:**
+
+```bash
+# List configured servers
+gemini mcp list
+
+# Check MCP server status
+/mcp
+```
+
+---
+
+### Claude Code Skill (Alternative)
+
+In addition to MCP, flg provides a Claude Code skill for quick command reference. When working in a project with flg, the `/flg` skill is available. The skill documentation is in `.claude/skills/flg/SKILL.md`.
 
 ## Contributing
 
