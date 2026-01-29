@@ -19,6 +19,7 @@ class ScreenTemplate {
     final pascalFeature = StringUtils.toPascalCase(featureName);
     final snakeFeature = StringUtils.toSnakeCase(featureName);
     final titleScreen = StringUtils.toTitleCase(screenName);
+    final projectName = config.projectName;
 
     if (config.usesRiverpod) {
       return _generateRiverpodScreen(
@@ -26,6 +27,7 @@ class ScreenTemplate {
         pascalFeature,
         snakeFeature,
         titleScreen,
+        projectName,
       );
     } else if (config.usesBloc) {
       return _generateBlocScreen(
@@ -33,6 +35,7 @@ class ScreenTemplate {
         pascalFeature,
         snakeFeature,
         titleScreen,
+        projectName,
       );
     } else {
       return _generateProviderScreen(
@@ -40,6 +43,7 @@ class ScreenTemplate {
         pascalFeature,
         snakeFeature,
         titleScreen,
+        projectName,
       );
     }
   }
@@ -49,12 +53,14 @@ class ScreenTemplate {
     String pascalFeature,
     String snakeFeature,
     String titleScreen,
+    String projectName,
   ) =>
       '''
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/${snakeFeature}_notifier.dart';
+import 'package:$projectName/features/$snakeFeature/presentation/providers/${snakeFeature}_notifier.dart';
+import 'package:$projectName/features/$snakeFeature/presentation/providers/${snakeFeature}_state.dart';
 
 /// Screen for $titleScreen.
 class ${pascalScreen}Screen extends ConsumerStatefulWidget {
@@ -145,12 +151,13 @@ class _${pascalScreen}ScreenState extends ConsumerState<${pascalScreen}Screen> {
     String pascalFeature,
     String snakeFeature,
     String titleScreen,
+    String projectName,
   ) =>
       '''
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../providers/${snakeFeature}_bloc.dart';
+import 'package:$projectName/features/$snakeFeature/presentation/providers/${snakeFeature}_bloc.dart';
 
 /// Screen for $titleScreen.
 class ${pascalScreen}Screen extends StatefulWidget {
@@ -233,12 +240,13 @@ class _${pascalScreen}ScreenState extends State<${pascalScreen}Screen> {
     String pascalFeature,
     String snakeFeature,
     String titleScreen,
+    String projectName,
   ) =>
       '''
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/${snakeFeature}_provider.dart';
+import 'package:$projectName/features/$snakeFeature/presentation/providers/${snakeFeature}_provider.dart';
 
 /// Screen for $titleScreen.
 class ${pascalScreen}Screen extends StatefulWidget {

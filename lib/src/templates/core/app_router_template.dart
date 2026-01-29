@@ -15,6 +15,7 @@ class AppRouterTemplate {
 
   static String _generateGoRouter(FcliConfig config) {
     final features = config.features;
+    final projectName = config.projectName;
     final imports = StringBuffer();
     final routes = StringBuffer();
 
@@ -22,7 +23,7 @@ class AppRouterTemplate {
       final pascal = StringUtils.toPascalCase(feature);
       final snake = StringUtils.toSnakeCase(feature);
       imports.writeln(
-          "import '../features/$snake/presentation/screens/${snake}_screen.dart';");
+          "import 'package:$projectName/features/$snake/presentation/screens/${snake}_screen.dart';");
     }
 
     for (var i = 0; i < features.length; i++) {
@@ -71,6 +72,7 @@ $routes
 
   static String _generateAutoRoute(FcliConfig config) {
     final features = config.features;
+    final projectName = config.projectName;
     final imports = StringBuffer();
     final routes = StringBuffer();
 
@@ -78,7 +80,7 @@ $routes
       final pascal = StringUtils.toPascalCase(feature);
       final snake = StringUtils.toSnakeCase(feature);
       imports.writeln(
-          "import '../features/$snake/presentation/screens/${snake}_screen.dart';");
+          "import 'package:$projectName/features/$snake/presentation/screens/${snake}_screen.dart';");
     }
 
     for (var i = 0; i < features.length; i++) {

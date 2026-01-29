@@ -1,3 +1,4 @@
+import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
 /// Template for generating data/repositories/<feature>_repository_impl.dart
@@ -7,24 +8,28 @@ class RepositoryImplTemplate {
   /// Generates a repository implementation class.
   ///
   /// [featureName] - The feature name (e.g., 'user', 'product')
+  /// [config] - The fcli configuration
   /// [entityName] - Optional custom entity name, defaults to feature name
   static String generate(
-    String featureName, {
+    String featureName,
+    FcliConfig config, {
     String? entityName,
   }) {
     final name = entityName ?? featureName;
     final pascalName = StringUtils.toPascalCase(name);
     final snakeName = StringUtils.toSnakeCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
+    final projectName = config.projectName;
 
     return '''
 import 'package:dartz/dartz.dart';
 
-import '../../../core/error/exceptions.dart';
-import '../../../core/error/failures.dart';
-import '../../domain/entities/${snakeName}_entity.dart';
-import '../../domain/repositories/${snakeName}_repository.dart';
-import '../datasources/${snakeName}_remote_datasource.dart';
-import '../models/${snakeName}_model.dart';
+import 'package:$projectName/core/error/exceptions.dart';
+import 'package:$projectName/core/error/failures.dart';
+import 'package:$projectName/features/$featureSnake/domain/entities/${snakeName}_entity.dart';
+import 'package:$projectName/features/$featureSnake/domain/repositories/${snakeName}_repository.dart';
+import 'package:$projectName/features/$featureSnake/data/datasources/${snakeName}_remote_datasource.dart';
+import 'package:$projectName/features/$featureSnake/data/models/${snakeName}_model.dart';
 
 /// Implementation of [${pascalName}Repository].
 class ${pascalName}RepositoryImpl implements ${pascalName}Repository {

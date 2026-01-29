@@ -18,25 +18,41 @@ class DataSourceTemplate {
     final name = entityName ?? featureName;
     final pascalName = StringUtils.toPascalCase(name);
     final snakeName = StringUtils.toSnakeCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
     final pluralSnake = StringUtils.toPlural(snakeName);
+    final projectName = config.projectName;
 
     if (config.useDioClient) {
-      return _generateDioDataSource(pascalName, snakeName, pluralSnake);
+      return _generateDioDataSource(
+        pascalName,
+        snakeName,
+        featureSnake,
+        pluralSnake,
+        projectName,
+      );
     } else {
-      return _generateHttpDataSource(pascalName, snakeName, pluralSnake);
+      return _generateHttpDataSource(
+        pascalName,
+        snakeName,
+        featureSnake,
+        pluralSnake,
+        projectName,
+      );
     }
   }
 
   static String _generateDioDataSource(
     String pascalName,
     String snakeName,
+    String featureSnake,
     String pluralSnake,
+    String projectName,
   ) =>
       '''
 import 'package:dio/dio.dart';
 
-import '../../../core/error/exceptions.dart';
-import '../models/${snakeName}_model.dart';
+import 'package:$projectName/core/error/exceptions.dart';
+import 'package:$projectName/features/$featureSnake/data/models/${snakeName}_model.dart';
 
 /// Remote data source for $pascalName using Dio.
 abstract class ${pascalName}RemoteDataSource {
@@ -153,14 +169,16 @@ class ${pascalName}RemoteDataSourceImpl implements ${pascalName}RemoteDataSource
   static String _generateHttpDataSource(
     String pascalName,
     String snakeName,
+    String featureSnake,
     String pluralSnake,
+    String projectName,
   ) =>
       '''
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../../../core/error/exceptions.dart';
-import '../models/${snakeName}_model.dart';
+import 'package:$projectName/core/error/exceptions.dart';
+import 'package:$projectName/features/$featureSnake/data/models/${snakeName}_model.dart';
 
 /// Remote data source for $pascalName using http package.
 abstract class ${pascalName}RemoteDataSource {
@@ -267,20 +285,23 @@ class ${pascalName}RemoteDataSourceImpl implements ${pascalName}RemoteDataSource
 
   /// Generates a local data source for caching.
   static String generateLocal(
-    String featureName, {
+    String featureName,
+    FcliConfig config, {
     String? entityName,
   }) {
     final name = entityName ?? featureName;
     final pascalName = StringUtils.toPascalCase(name);
     final snakeName = StringUtils.toSnakeCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
+    final projectName = config.projectName;
 
     return '''
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/error/exceptions.dart';
-import '../models/${snakeName}_model.dart';
+import 'package:$projectName/core/error/exceptions.dart';
+import 'package:$projectName/features/$featureSnake/data/models/${snakeName}_model.dart';
 
 /// Local data source for caching $pascalName data.
 abstract class ${pascalName}LocalDataSource {

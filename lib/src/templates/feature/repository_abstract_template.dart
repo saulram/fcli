@@ -1,3 +1,4 @@
+import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
 /// Template for generating domain/repositories/<feature>_repository.dart
@@ -7,16 +8,20 @@ class RepositoryAbstractTemplate {
   /// Generates an abstract repository interface.
   ///
   /// [featureName] - The feature name (e.g., 'user', 'product')
+  /// [config] - The fcli configuration
   /// [entityName] - Optional custom entity name, defaults to feature name
   /// [methods] - Optional list of methods as tuples (returnType, name, params)
   static String generate(
-    String featureName, {
+    String featureName,
+    FcliConfig config, {
     String? entityName,
     List<(String returnType, String name, String params)>? methods,
   }) {
     final name = entityName ?? featureName;
     final pascalName = StringUtils.toPascalCase(name);
     final snakeName = StringUtils.toSnakeCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
+    final projectName = config.projectName;
 
     final methodsList = methods ?? _defaultMethods(pascalName);
     final methodsCode = _generateMethods(methodsList);
@@ -24,13 +29,12 @@ class RepositoryAbstractTemplate {
     return '''
 import 'package:dartz/dartz.dart';
 
-import '../../../core/error/failures.dart';
-import '../entities/${snakeName}_entity.dart';
+import 'package:$projectName/core/error/failures.dart';
+import 'package:$projectName/features/$featureSnake/domain/entities/${snakeName}_entity.dart';
 
 /// Abstract repository interface for $pascalName operations.
 abstract class ${pascalName}Repository {
-$methodsCode
-}
+$methodsCode}
 ''';
   }
 

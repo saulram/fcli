@@ -1,3 +1,4 @@
+import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
 /// Template for generating presentation/widgets/<widget>_widget.dart
@@ -59,17 +60,26 @@ class _${pascalName}WidgetState extends State<${pascalName}Widget> {
 
   /// Generates a card widget for displaying an entity.
   ///
-  /// [entityName] - The entity name (e.g., 'user', 'product')
-  static String generateEntityCard(String entityName) {
-    final pascalName = StringUtils.toPascalCase(entityName);
-    final snakeName = StringUtils.toSnakeCase(entityName);
-    final camelName = StringUtils.toCamelCase(entityName);
-    final titleName = StringUtils.toTitleCase(entityName);
+  /// [featureName] - The feature name (e.g., 'user', 'product')
+  /// [config] - The fcli configuration
+  /// [entityName] - Optional custom entity name, defaults to feature name
+  static String generateEntityCard(
+    String featureName,
+    FcliConfig config, {
+    String? entityName,
+  }) {
+    final name = entityName ?? featureName;
+    final pascalName = StringUtils.toPascalCase(name);
+    final snakeName = StringUtils.toSnakeCase(name);
+    final camelName = StringUtils.toCamelCase(name);
+    final titleName = StringUtils.toTitleCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
+    final projectName = config.projectName;
 
     return '''
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/${snakeName}_entity.dart';
+import 'package:$projectName/features/$featureSnake/domain/entities/${snakeName}_entity.dart';
 
 /// Card widget for displaying a $titleName.
 class ${pascalName}Card extends StatelessWidget {
@@ -158,17 +168,26 @@ class ${pascalName}Card extends StatelessWidget {
 
   /// Generates a list tile widget for displaying an entity.
   ///
-  /// [entityName] - The entity name (e.g., 'user', 'product')
-  static String generateEntityListTile(String entityName) {
-    final pascalName = StringUtils.toPascalCase(entityName);
-    final snakeName = StringUtils.toSnakeCase(entityName);
-    final camelName = StringUtils.toCamelCase(entityName);
-    final titleName = StringUtils.toTitleCase(entityName);
+  /// [featureName] - The feature name (e.g., 'user', 'product')
+  /// [config] - The fcli configuration
+  /// [entityName] - Optional custom entity name, defaults to feature name
+  static String generateEntityListTile(
+    String featureName,
+    FcliConfig config, {
+    String? entityName,
+  }) {
+    final name = entityName ?? featureName;
+    final pascalName = StringUtils.toPascalCase(name);
+    final snakeName = StringUtils.toSnakeCase(name);
+    final camelName = StringUtils.toCamelCase(name);
+    final titleName = StringUtils.toTitleCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
+    final projectName = config.projectName;
 
     return '''
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/${snakeName}_entity.dart';
+import 'package:$projectName/features/$featureSnake/domain/entities/${snakeName}_entity.dart';
 
 /// List tile widget for displaying a $titleName.
 class ${pascalName}ListTile extends StatelessWidget {
@@ -198,17 +217,26 @@ class ${pascalName}ListTile extends StatelessWidget {
 
   /// Generates a form widget for an entity.
   ///
-  /// [entityName] - The entity name (e.g., 'user', 'product')
-  static String generateEntityForm(String entityName) {
-    final pascalName = StringUtils.toPascalCase(entityName);
-    final snakeName = StringUtils.toSnakeCase(entityName);
-    final camelName = StringUtils.toCamelCase(entityName);
-    final titleName = StringUtils.toTitleCase(entityName);
+  /// [featureName] - The feature name (e.g., 'user', 'product')
+  /// [config] - The fcli configuration
+  /// [entityName] - Optional custom entity name, defaults to feature name
+  static String generateEntityForm(
+    String featureName,
+    FcliConfig config, {
+    String? entityName,
+  }) {
+    final name = entityName ?? featureName;
+    final pascalName = StringUtils.toPascalCase(name);
+    final snakeName = StringUtils.toSnakeCase(name);
+    final camelName = StringUtils.toCamelCase(name);
+    final titleName = StringUtils.toTitleCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
+    final projectName = config.projectName;
 
     return '''
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/${snakeName}_entity.dart';
+import 'package:$projectName/features/$featureSnake/domain/entities/${snakeName}_entity.dart';
 
 /// Form widget for creating/editing a $titleName.
 class ${pascalName}Form extends StatefulWidget {

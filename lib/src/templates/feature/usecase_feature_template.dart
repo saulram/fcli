@@ -1,3 +1,4 @@
+import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
 /// Template for generating domain/usecases/<action>_<feature>_usecase.dart
@@ -8,12 +9,14 @@ class UseCaseFeatureTemplate {
   ///
   /// [featureName] - The feature name (e.g., 'user', 'product')
   /// [action] - The action (e.g., 'get', 'create', 'update', 'delete')
+  /// [config] - The fcli configuration
   /// [entityName] - Optional custom entity name, defaults to feature name
   /// [returnType] - Optional custom return type
   /// [paramsType] - Optional params type (null for NoParams)
   static String generate(
     String featureName,
-    String action, {
+    String action,
+    FcliConfig config, {
     String? entityName,
     String? returnType,
     String? paramsType,
@@ -22,8 +25,10 @@ class UseCaseFeatureTemplate {
     final name = entityName ?? featureName;
     final pascalName = StringUtils.toPascalCase(name);
     final snakeName = StringUtils.toSnakeCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
     final pascalAction = StringUtils.toPascalCase(action);
     final camelAction = StringUtils.toCamelCase(action);
+    final projectName = config.projectName;
 
     final useCaseName = '$pascalAction$pascalName';
     final hasParams = paramsType != null;
@@ -39,10 +44,10 @@ class UseCaseFeatureTemplate {
     return '''
 import 'package:dartz/dartz.dart';
 
-import '../../../core/error/failures.dart';
-import '../../../core/usecases/usecase.dart';
-import '../entities/${snakeName}_entity.dart';
-import '../repositories/${snakeName}_repository.dart';
+import 'package:$projectName/core/error/failures.dart';
+import 'package:$projectName/core/usecases/usecase.dart';
+import 'package:$projectName/features/$featureSnake/domain/entities/${snakeName}_entity.dart';
+import 'package:$projectName/features/$featureSnake/domain/repositories/${snakeName}_repository.dart';
 
 /// Use case for ${action}ing $pascalName.
 class ${useCaseName}UseCase implements UseCase<$effectiveReturnType, $effectiveParamsType> {
@@ -125,7 +130,8 @@ ${_generateParamsProperties(fields)}
 
   /// Generates a set of common use cases for a feature.
   static Map<String, String> generateCommonUseCases(
-    String featureName, {
+    String featureName,
+    FcliConfig config, {
     String? entityName,
   }) {
     final name = entityName ?? featureName;
@@ -136,6 +142,7 @@ ${_generateParamsProperties(fields)}
       'get_${snakeName}_usecase.dart': generate(
         featureName,
         'get',
+        config,
         entityName: entityName,
         paramsType: 'Get${pascalName}Params',
         paramsFields: '{required this.id}',
@@ -143,12 +150,14 @@ ${_generateParamsProperties(fields)}
       'get_all_${snakeName}s_usecase.dart': generate(
         featureName,
         'getAll',
+        config,
         entityName: entityName,
         returnType: 'List<${pascalName}Entity>',
       ),
       'create_${snakeName}_usecase.dart': generate(
         featureName,
         'create',
+        config,
         entityName: entityName,
         paramsType: 'Create${pascalName}Params',
         paramsFields: '{required this.entity}',
@@ -156,6 +165,7 @@ ${_generateParamsProperties(fields)}
       'update_${snakeName}_usecase.dart': generate(
         featureName,
         'update',
+        config,
         entityName: entityName,
         paramsType: 'Update${pascalName}Params',
         paramsFields: '{required this.entity}',
@@ -163,6 +173,7 @@ ${_generateParamsProperties(fields)}
       'delete_${snakeName}_usecase.dart': generate(
         featureName,
         'delete',
+        config,
         entityName: entityName,
         returnType: 'void',
         paramsType: 'Delete${pascalName}Params',

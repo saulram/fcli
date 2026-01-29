@@ -20,39 +20,42 @@ class ModelTemplate {
     final name = entityName ?? featureName;
 
     if (config.useFreezed) {
-      return _generateFreezedModel(name, properties);
+      return _generateFreezedModel(name, config.projectName, featureName, properties);
     } else {
-      return _generateManualModel(name, properties);
+      return _generateManualModel(name, config.projectName, featureName, properties);
     }
   }
 
   static String _generateFreezedModel(
     String name,
+    String projectName,
+    String featureName,
     List<(String, String, String?)>? properties,
   ) {
     final pascalName = StringUtils.toPascalCase(name);
     final snakeName = StringUtils.toSnakeCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
 
     final props = properties ?? _defaultProperties(name);
     final propsCode = _generateFreezedProperties(props);
     final toEntityCode = _generateToEntity(pascalName, props);
+    final fromEntityCode = _generateFromEntity(props);
 
     return '''
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/entities/${snakeName}_entity.dart';
+import 'package:$projectName/features/$featureSnake/domain/entities/${snakeName}_entity.dart';
 
 part '${snakeName}_model.freezed.dart';
 part '${snakeName}_model.g.dart';
 
 /// Data model for $pascalName with JSON serialization.
 @freezed
-class ${pascalName}Model with _\$${pascalName}Model {
-  const ${pascalName}Model._();
-
+sealed class ${pascalName}Model with _\$${pascalName}Model {
   const factory ${pascalName}Model({
-$propsCode
-  }) = _${pascalName}Model;
+$propsCode  }) = _${pascalName}Model;
+
+  const ${pascalName}Model._();
 
   factory ${pascalName}Model.fromJson(Map<String, dynamic> json) =>
       _\$${pascalName}ModelFromJson(json);
@@ -65,7 +68,7 @@ $toEntityCode
   /// Creates a model from a domain entity.
   factory ${pascalName}Model.fromEntity(${pascalName}Entity entity) =>
       ${pascalName}Model(
-$toEntityCode
+$fromEntityCode
       );
 }
 ''';
@@ -73,10 +76,13 @@ $toEntityCode
 
   static String _generateManualModel(
     String name,
+    String projectName,
+    String featureName,
     List<(String, String, String?)>? properties,
   ) {
     final pascalName = StringUtils.toPascalCase(name);
     final snakeName = StringUtils.toSnakeCase(name);
+    final featureSnake = StringUtils.toSnakeCase(featureName);
 
     final props = properties ?? _defaultProperties(name);
     final propsCode = _generateManualProperties(props);
@@ -84,28 +90,25 @@ $toEntityCode
     final fromJsonCode = _generateFromJson(props);
     final toJsonCode = _generateToJson(props);
     final toEntityCode = _generateToEntity(pascalName, props);
+    final fromEntityCode = _generateFromEntity(props);
 
     return '''
-import '../../domain/entities/${snakeName}_entity.dart';
+import 'package:$projectName/features/$featureSnake/domain/entities/${snakeName}_entity.dart';
 
 /// Data model for $pascalName with JSON serialization.
 class ${pascalName}Model {
   const ${pascalName}Model({
-$constructorParams
-  });
+$constructorParams  });
 
 $propsCode
-
   /// Creates a model from JSON.
   factory ${pascalName}Model.fromJson(Map<String, dynamic> json) =>
       ${pascalName}Model(
-$fromJsonCode
-      );
+$fromJsonCode      );
 
   /// Converts this model to JSON.
   Map<String, dynamic> toJson() => {
-$toJsonCode
-      };
+$toJsonCode      };
 
   /// Converts this model to a domain entity.
   ${pascalName}Entity toEntity() => ${pascalName}Entity(
@@ -115,7 +118,7 @@ $toEntityCode
   /// Creates a model from a domain entity.
   factory ${pascalName}Model.fromEntity(${pascalName}Entity entity) =>
       ${pascalName}Model(
-$toEntityCode
+$fromEntityCode
       );
 }
 ''';
@@ -219,6 +222,17 @@ $toEntityCode
       final camelName = StringUtils.toCamelCase(name);
       buffer.writeln('        $camelName: $camelName,');
     }
-    return buffer.toString();
+    return buffer.toString().trimRight();
+  }
+
+  static String _generateFromEntity(
+    List<(String, String, String?)> properties,
+  ) {
+    final buffer = StringBuffer();
+    for (final (_, name, _) in properties) {
+      final camelName = StringUtils.toCamelCase(name);
+      buffer.writeln('        $camelName: entity.$camelName,');
+    }
+    return buffer.toString().trimRight();
   }
 }
