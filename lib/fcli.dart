@@ -11,6 +11,7 @@ export 'src/config/fcli_config.dart';
 // Commands
 export 'src/commands/generate_command.dart';
 export 'src/commands/init_command.dart';
+export 'src/commands/setup_command.dart';
 
 // Generators
 export 'src/generators/feature_generator.dart';

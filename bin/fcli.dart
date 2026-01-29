@@ -4,6 +4,7 @@ import 'package:args/command_runner.dart';
 
 import 'package:fcli/src/commands/generate_command.dart';
 import 'package:fcli/src/commands/init_command.dart';
+import 'package:fcli/src/commands/setup_command.dart';
 import 'package:fcli/src/utils/console_utils.dart';
 
 const String version = '1.0.0';
@@ -15,7 +16,8 @@ Future<void> main(List<String> arguments) async {
         'Version: $version',
   )
     ..addCommand(InitCommand())
-    ..addCommand(GenerateCommand());
+    ..addCommand(GenerateCommand())
+    ..addCommand(SetupCommand());
 
   // Add global flags
   runner.argParser
