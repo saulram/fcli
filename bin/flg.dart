@@ -8,7 +8,7 @@ import 'package:flg/src/commands/setup_command.dart';
 import 'package:flg/src/commands/task_command.dart';
 import 'package:flg/src/utils/console_utils.dart';
 
-const String version = '1.2.0-beta.2';
+const String version = '1.2.0';
 
 Future<void> main(List<String> arguments) async {
   final runner = CommandRunner<int>(
