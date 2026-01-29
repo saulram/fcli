@@ -478,13 +478,17 @@ MCP servers can be configured **globally** (available in all projects) or **per-
 
 #### Option 1: Global Configuration (Recommended)
 
-Global configuration makes flg available in all your projects.
+Global configuration makes flg available in all your projects. Requires flg to be installed globally:
+
+```bash
+dart pub global activate flg
+```
 
 **Claude Code:**
 
 ```bash
 # Using Claude CLI (easiest)
-claude mcp add --scope user flg -- dart run flg:flg_mcp
+claude mcp add --scope user flg -- flg_mcp
 ```
 
 Or manually edit `~/.claude/settings.json`:
@@ -493,8 +497,7 @@ Or manually edit `~/.claude/settings.json`:
 {
   "mcpServers": {
     "flg": {
-      "command": "dart",
-      "args": ["run", "flg:flg_mcp"]
+      "command": "flg_mcp"
     }
   }
 }
@@ -504,7 +507,7 @@ Or manually edit `~/.claude/settings.json`:
 
 ```bash
 # Using Gemini CLI (easiest)
-gemini mcp add --scope user flg -- dart run flg:flg_mcp
+gemini mcp add --scope user flg -- flg_mcp
 ```
 
 Or manually edit `~/.gemini/settings.json`:
@@ -513,20 +516,42 @@ Or manually edit `~/.gemini/settings.json`:
 {
   "mcpServers": {
     "flg": {
-      "command": "dart",
-      "args": ["run", "flg:flg_mcp"]
+      "command": "flg_mcp"
     }
   }
 }
 ```
 
+> **Note**: If `flg_mcp` is not found, ensure Dart's pub cache bin is in your PATH:
+> ```bash
+> export PATH="$PATH:$HOME/.pub-cache/bin"
+> ```
+
 #### Option 2: Per-Project Configuration
 
-Per-project configuration limits flg to specific projects. Useful for team projects where you want to ensure consistent tooling.
+Per-project configuration limits flg to specific projects. You can either use the global `flg_mcp` command or reference flg as a dev dependency.
 
-**Claude Code:**
+**Using global flg_mcp (simpler):**
 
-Create `.mcp.json` in your project root:
+```bash
+# Claude Code
+claude mcp add --scope project flg -- flg_mcp
+
+# Gemini CLI
+gemini mcp add --scope project flg -- flg_mcp
+```
+
+**Using flg as a dev dependency:**
+
+First add flg to your project:
+
+```bash
+dart pub add --dev flg
+```
+
+Then configure MCP:
+
+**Claude Code** - Create `.mcp.json` in your project root:
 
 ```json
 {
@@ -539,21 +564,7 @@ Create `.mcp.json` in your project root:
 }
 ```
 
-Or use the CLI:
-
-```bash
-# In your project directory
-claude mcp add --scope project flg -- dart run flg:flg_mcp
-```
-
-**Gemini CLI:**
-
-```bash
-# In your project directory
-gemini mcp add --scope project flg -- dart run flg:flg_mcp
-```
-
-Or create `.gemini/settings.json` in your project root:
+**Gemini CLI** - Create `.gemini/settings.json` in your project root:
 
 ```json
 {

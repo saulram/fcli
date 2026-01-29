@@ -24,7 +24,7 @@ base class FlgMcpServer extends MCPServer with ToolsSupport {
       : super.fromStreamChannel(
           implementation: Implementation(
             name: 'flg',
-            version: '1.2.1',
+            version: '1.2.2',
           ),
           instructions: '''
 FLG - Flutter Generator CLI

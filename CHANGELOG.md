@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2026-01-29
+
+### Documentation
+
+- **Fixed MCP global configuration** to use `flg_mcp` executable directly
+  - Global config now uses `flg_mcp` command (installed via `dart pub global activate flg`)
+  - Per-project config can use either global `flg_mcp` or `dart run flg:flg_mcp` as dev dependency
+  - Added PATH configuration note for pub-cache bin
+
 ## [1.2.1] - 2026-01-29
 
 ### Documentation
