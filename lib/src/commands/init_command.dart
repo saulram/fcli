@@ -8,6 +8,7 @@ import '../generators/project_generator.dart';
 import '../utils/console_utils.dart';
 import '../utils/file_utils.dart';
 import '../utils/process_utils.dart';
+import '../utils/validation_utils.dart';
 
 /// Command for initializing a new Flutter project with Clean Architecture.
 class InitCommand extends Command<int> {
@@ -102,13 +103,11 @@ class InitCommand extends Command<int> {
     final verbose = argResults!['verbose'] as bool;
     final skipPrompts = argResults!['skip-prompts'] as bool;
 
-    // Validate project name
-    if (!_isValidProjectName(projectName)) {
+    // Validate project name with enhanced security checks
+    final projectNameError = ValidationUtils.validateProjectName(projectName);
+    if (projectNameError != null) {
       ConsoleUtils.error('Invalid project name: $projectName');
-      ConsoleUtils.info(
-        'Project name must be a valid Dart package name '
-        '(lowercase, underscores allowed).',
-      );
+      ConsoleUtils.error(projectNameError);
       return 1;
     }
 
@@ -165,9 +164,6 @@ class InitCommand extends Command<int> {
 
     return success ? 0 : 1;
   }
-
-  bool _isValidProjectName(String name) =>
-      RegExp(r'^[a-z_][a-z0-9_]*$').hasMatch(name);
 
   FcliConfig _buildConfigFromArgs(String projectName) {
     final org = argResults!['org'] as String;

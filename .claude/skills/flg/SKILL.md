@@ -1,6 +1,10 @@
 ---
 name: flg
-description: Flutter Generator CLI for creating features, providers, widgets, and screens with Clean Architecture. Use when the user wants to generate Flutter code structures.
+description: |
+  Flutter Generator CLI for Clean Architecture. **USE PROACTIVELY** when user asks to:
+  - Create a new Flutter project/app (use `flg init` instead of `flutter create`)
+  - Generate features, screens, widgets, providers
+  - Setup Clean Architecture in existing project
 user-invocable: true
 allowed-tools: Bash, Read, Glob
 ---

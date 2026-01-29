@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import '../utils/process_utils.dart';
+import '../utils/validation_utils.dart';
 
 /// Information about a git worktree.
 class WorktreeInfo {
@@ -102,12 +103,27 @@ class GitService {
   }
 
   /// Creates a new worktree with a branch.
+  ///
+  /// Throws [ArgumentError] if branch name is invalid.
   static Future<ProcessResult> worktreeAdd(
     String worktreePath,
     String branch, {
     String? baseBranch,
     String? repoPath,
   }) async {
+    // Validate branch name before passing to git
+    final branchError = ValidationUtils.validateBranchName(branch);
+    if (branchError != null) {
+      throw ArgumentError('Invalid branch name: $branchError');
+    }
+
+    if (baseBranch != null) {
+      final baseError = ValidationUtils.validateBranchName(baseBranch);
+      if (baseError != null) {
+        throw ArgumentError('Invalid base branch name: $baseError');
+      }
+    }
+
     final args = ['worktree', 'add'];
 
     if (baseBranch != null) {
@@ -251,7 +267,15 @@ class GitService {
   }
 
   /// Checks if a branch exists.
+  ///
+  /// Returns false if the branch name is invalid.
   static Future<bool> branchExists(String path, String branch) async {
+    // Validate branch name before passing to git
+    final branchError = ValidationUtils.validateBranchName(branch);
+    if (branchError != null) {
+      return false;
+    }
+
     final result = await ProcessUtils.run(
       'git',
       ['show-ref', '--verify', '--quiet', 'refs/heads/$branch'],
@@ -261,11 +285,19 @@ class GitService {
   }
 
   /// Deletes a branch.
+  ///
+  /// Throws [ArgumentError] if branch name is invalid.
   static Future<ProcessResult> deleteBranch(
     String path,
     String branch, {
     bool force = false,
   }) async {
+    // Validate branch name before passing to git
+    final branchError = ValidationUtils.validateBranchName(branch);
+    if (branchError != null) {
+      throw ArgumentError('Invalid branch name: $branchError');
+    }
+
     return ProcessUtils.run(
       'git',
       ['branch', force ? '-D' : '-d', branch],

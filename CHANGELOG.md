@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0-beta.2] - 2026-01-29
+
+### Added
+
+- **`flg_init` MCP tool** - Create Flutter projects directly from Claude Code
+  - Automatically triggered when users ask to "create a Flutter project"
+  - Replaces need for `flutter create` when FLG is available
+  - Supports all `flg init` options: state management, router, organization
+
+- **`ValidationUtils`** - New security validation module
+  - `validatePath()` - Prevents path traversal attacks
+  - `validateProjectName()` - Enhanced validation with reserved names check
+  - `validateTaskName()` - Safe alphanumeric validation for git worktrees
+  - `validateBranchName()` - Git-compliant branch name validation
+  - `sanitizeForConsole()` - Removes ANSI escape codes and control characters
+
+### Security
+
+- **Fixed path traversal vulnerability** in MCP `flg_info` tool
+- **Added input validation** to all MCP tool handlers
+- **Added branch name validation** in `GitService` before git operations
+- **Added task name validation** in `TaskCommand` to prevent directory escape
+- **Enhanced project name validation** with reserved names and length limits
+- **Use `path.join()`** instead of string interpolation for file paths
+
+### Changed
+
+- MCP server instructions now explicitly guide Claude to use FLG for Flutter project creation
+- Skill description updated to indicate proactive usage for project creation
+
 ## [1.1.0] - 2026-01-29
 
 ### Added

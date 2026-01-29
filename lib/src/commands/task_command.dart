@@ -7,6 +7,7 @@ import '../models/task_info.dart';
 import '../services/git_service.dart';
 import '../utils/console_utils.dart';
 import '../utils/process_utils.dart';
+import '../utils/validation_utils.dart';
 
 /// Command for managing git worktrees for AI agent workflows.
 class TaskCommand extends Command<int> {
@@ -80,6 +81,13 @@ class TaskAddCommand extends Command<int> {
     final baseBranchArg = argResults!['base'] as String?;
     final dryRun = argResults!['dry-run'] as bool;
 
+    // Validate task name to prevent path traversal
+    final taskNameError = ValidationUtils.validateTaskName(taskName);
+    if (taskNameError != null) {
+      ConsoleUtils.error(taskNameError);
+      return 1;
+    }
+
     final currentDir = Directory.current.path;
 
     // Verify we're in a git repo
@@ -98,6 +106,13 @@ class TaskAddCommand extends Command<int> {
     final taskType = TaskType.fromString(typeStr);
     final baseBranch = baseBranchArg ?? await GitService.getMainBranch(repoRoot);
     final branchName = '${taskType.branchPrefix}/$taskName';
+
+    // Validate branch name
+    final branchError = ValidationUtils.validateBranchName(branchName);
+    if (branchError != null) {
+      ConsoleUtils.error('Invalid branch name: $branchError');
+      return 1;
+    }
 
     // Check if branch already exists
     if (await GitService.branchExists(repoRoot, branchName)) {
@@ -339,6 +354,13 @@ class TaskRemoveCommand extends Command<int> {
     final taskName = argResults!.rest.first;
     final force = argResults!['force'] as bool;
     final keepBranch = argResults!['keep-branch'] as bool;
+
+    // Validate task name to prevent path traversal
+    final taskNameError = ValidationUtils.validateTaskName(taskName);
+    if (taskNameError != null) {
+      ConsoleUtils.error(taskNameError);
+      return 1;
+    }
 
     final currentDir = Directory.current.path;
 
