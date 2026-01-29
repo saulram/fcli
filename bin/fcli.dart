@@ -31,8 +31,10 @@ Future<void> main(List<String> arguments) async {
     );
 
   try {
-    // Handle --version flag
-    if (arguments.contains('--version') || arguments.contains('-v')) {
+    // Handle --version flag (only if it's the first/only argument)
+    if (arguments.isNotEmpty &&
+        (arguments.first == '--version' ||
+            (arguments.first == '-v' && arguments.length == 1))) {
       print('fcli version $version');
       exit(0);
     }
