@@ -70,14 +70,16 @@ class ProjectGenerator {
     // Step 8: Run flutter pub get
     await _runPubGet();
 
+    // Step 9: Run build_runner if needed
+    if (config.useFreezed || config.usesRiverpod || config.usesAutoRoute) {
+      await _runBuildRunner();
+    }
+
     ConsoleUtils.newLine();
     ConsoleUtils.success('Project created successfully!');
     ConsoleUtils.newLine();
     ConsoleUtils.info('Next steps:');
     ConsoleUtils.step('cd ${config.projectName}');
-    if (config.useFreezed) {
-      ConsoleUtils.step('dart run build_runner build --delete-conflicting-outputs');
-    }
     ConsoleUtils.step('flutter run');
 
     return true;
@@ -277,6 +279,27 @@ class ProjectGenerator {
       }
     } else {
       ConsoleUtils.success('Dependencies installed');
+    }
+  }
+
+  Future<void> _runBuildRunner() async {
+    ConsoleUtils.step('Running build_runner...');
+
+    final result = await ProcessUtils.buildRunner(
+      workingDirectory: projectPath,
+      deleteConflicting: true,
+      verbose: verbose,
+      useFlutter: true,
+    );
+
+    if (result.failed) {
+      ConsoleUtils.warning('build_runner failed - you may need to run it manually');
+      ConsoleUtils.muted('Run: dart run build_runner build --delete-conflicting-outputs');
+      if (verbose) {
+        ConsoleUtils.muted(result.stderr);
+      }
+    } else {
+      ConsoleUtils.success('Code generation completed');
     }
   }
 }

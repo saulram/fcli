@@ -124,16 +124,26 @@ class ProcessUtils {
     String? workingDirectory,
     bool deleteConflicting = true,
     bool verbose = false,
+    bool useFlutter = false,
   }) async {
-    final args = [
-      'run',
-      'build_runner',
-      'build',
-      if (deleteConflicting) '--delete-conflicting-outputs',
-    ];
+    final executable = useFlutter ? 'flutter' : 'dart';
+    final args = useFlutter
+        ? [
+            'pub',
+            'run',
+            'build_runner',
+            'build',
+            if (deleteConflicting) '--delete-conflicting-outputs',
+          ]
+        : [
+            'run',
+            'build_runner',
+            'build',
+            if (deleteConflicting) '--delete-conflicting-outputs',
+          ];
 
     return run(
-      'dart',
+      executable,
       args,
       workingDirectory: workingDirectory,
       verbose: verbose,
