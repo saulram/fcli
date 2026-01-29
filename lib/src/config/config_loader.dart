@@ -7,11 +7,11 @@ import '../utils/console_utils.dart';
 import '../utils/file_utils.dart';
 import 'fcli_config.dart';
 
-/// Utility class for loading and saving fcli configuration.
+/// Utility class for loading and saving flg configuration.
 class ConfigLoader {
   ConfigLoader._();
 
-  static const String configFileName = 'fcli.json';
+  static const String configFileName = 'flg.json';
 
   /// Gets the path to the config file in a directory.
   static String getConfigPath(String projectPath) =>
@@ -172,7 +172,7 @@ class ConfigLoader {
     return errors;
   }
 
-  /// Finds the nearest fcli.json config file by traversing up the directory tree.
+  /// Finds the nearest flg.json config file by traversing up the directory tree.
   static String? findConfigPath([String? startPath]) {
     var current = Directory(startPath ?? Directory.current.path);
 
@@ -187,13 +187,13 @@ class ConfigLoader {
     return null;
   }
 
-  /// Ensures we're in a valid fcli project directory.
+  /// Ensures we're in a valid flg project directory.
   /// Returns the project root path or null if not in a project.
   static String? ensureInProject([String? startPath]) {
     final projectPath = findConfigPath(startPath);
     if (projectPath == null) {
-      ConsoleUtils.error('Not in an fcli project directory.');
-      ConsoleUtils.info('Run "fcli init <project_name>" to create a new project.');
+      ConsoleUtils.error('Not in a flg project directory.');
+      ConsoleUtils.info('Run "flg init <project_name>" to create a new project.');
       return null;
     }
     return projectPath;

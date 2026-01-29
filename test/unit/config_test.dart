@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fcli/src/config/config_loader.dart';
-import 'package:fcli/src/config/fcli_config.dart';
+import 'package:flg/src/config/config_loader.dart';
+import 'package:flg/src/config/fcli_config.dart';
 import 'package:test/test.dart';
 
 void main() {

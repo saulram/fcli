@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:fcli/src/config/fcli_config.dart';
-import 'package:fcli/src/generators/feature_generator.dart';
-import 'package:fcli/src/utils/file_utils.dart';
+import 'package:flg/src/config/fcli_config.dart';
+import 'package:flg/src/generators/feature_generator.dart';
+import 'package:flg/src/utils/file_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -59,7 +59,7 @@ class UseCaseGenerator {
     final featurePath = p.join(projectPath, 'lib', 'features', snakeFeature);
     if (!FileUtils.directoryExistsSync(featurePath)) {
       ConsoleUtils.error('Feature "$featureName" does not exist.');
-      ConsoleUtils.info('Run "fcli g feature $featureName" first.');
+      ConsoleUtils.info('Run "flg g feature $featureName" first.');
       return;
     }
 
@@ -129,7 +129,7 @@ class UseCaseGenerator {
     final featurePath = p.join(projectPath, 'lib', 'features', snakeFeature);
     if (!FileUtils.directoryExistsSync(featurePath)) {
       ConsoleUtils.error('Feature "$featureName" does not exist.');
-      ConsoleUtils.info('Run "fcli g feature $featureName" first.');
+      ConsoleUtils.info('Run "flg g feature $featureName" first.');
       return;
     }
 

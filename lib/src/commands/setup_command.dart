@@ -16,14 +16,14 @@ import '../utils/console_utils.dart';
 import '../utils/file_utils.dart';
 import '../utils/process_utils.dart';
 
-/// Command for setting up fcli in an existing Flutter project.
+/// Command for setting up flg in an existing Flutter project.
 class SetupCommand extends Command<int> {
   SetupCommand() {
     argParser
       ..addFlag(
         'force',
         abbr: 'f',
-        help: 'Force re-prompt for configuration even if fcli.json exists.',
+        help: 'Force re-prompt for configuration even if flg.json exists.',
         negatable: false,
       )
       ..addFlag(
@@ -84,7 +84,7 @@ class SetupCommand extends Command<int> {
       'Set up fcli in an existing Flutter project with Clean Architecture.';
 
   @override
-  String get invocation => 'fcli setup [options]';
+  String get invocation => 'flg setup [options]';
 
   @override
   Future<int> run() async {
@@ -102,15 +102,15 @@ class SetupCommand extends Command<int> {
     if (!FileUtils.fileExistsSync(pubspecPath)) {
       ConsoleUtils.error('No pubspec.yaml found in current directory.');
       ConsoleUtils.info('Please run this command from a Flutter project root.');
-      ConsoleUtils.info('Or use "fcli init <project_name>" to create a new project.');
+      ConsoleUtils.info('Or use "flg init <project_name>" to create a new project.');
       return 1;
     }
 
-    // Check if fcli.json already exists
+    // Check if flg.json already exists
     if (ConfigLoader.configExists(projectPath) && !force) {
-      ConsoleUtils.warning('fcli.json already exists.');
+      ConsoleUtils.warning('flg.json already exists.');
       if (!ConsoleUtils.confirm('Do you want to reconfigure?')) {
-        ConsoleUtils.info('Use "fcli g f <feature_name>" to generate features.');
+        ConsoleUtils.info('Use "flg g f <feature_name>" to generate features.');
         return 0;
       }
     }
@@ -163,7 +163,7 @@ class SetupCommand extends Command<int> {
     // Step 3: Generate core files
     await _generateCoreFiles(libPath, config);
 
-    // Step 4: Save fcli.json
+    // Step 4: Save flg.json
     await _saveFcliConfig(projectPath, config);
 
     // Step 5: Generate initial feature if specified
@@ -180,11 +180,11 @@ class SetupCommand extends Command<int> {
     }
 
     ConsoleUtils.newLine();
-    ConsoleUtils.success('fcli setup completed!');
+    ConsoleUtils.success('flg setup completed!');
     ConsoleUtils.newLine();
     ConsoleUtils.info('Next steps:');
-    ConsoleUtils.step('fcli g f <feature_name>  - Generate a new feature');
-    ConsoleUtils.step('fcli g s <screen_name> --feature=<feature>  - Generate a screen');
+    ConsoleUtils.step('flg g f <feature_name>  - Generate a new feature');
+    ConsoleUtils.step('flg g s <screen_name> --feature=<feature>  - Generate a screen');
     ConsoleUtils.step('flutter run');
 
     return 0;
@@ -283,7 +283,7 @@ class SetupCommand extends Command<int> {
 
     final paths = [
       'pubspec.yaml (add dependencies)',
-      'fcli.json',
+      'flg.json',
       'lib/core/',
       'lib/core/error/exceptions.dart',
       'lib/core/error/failures.dart',
@@ -506,14 +506,14 @@ class SetupCommand extends Command<int> {
   }
 
   Future<void> _saveFcliConfig(String projectPath, FcliConfig config) async {
-    ConsoleUtils.step('Saving fcli.json...');
+    ConsoleUtils.step('Saving flg.json...');
 
     await FileUtils.writeFile(
-      p.join(projectPath, 'fcli.json'),
+      p.join(projectPath, 'flg.json'),
       FcliJsonTemplate.generate(config),
     );
 
-    ConsoleUtils.success('fcli.json saved');
+    ConsoleUtils.success('flg.json saved');
   }
 
   Future<void> _generateFeatures(

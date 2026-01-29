@@ -1,12 +1,12 @@
-import 'package:fcli/src/config/fcli_config.dart';
-import 'package:fcli/src/templates/core/exceptions_template.dart';
-import 'package:fcli/src/templates/core/failures_template.dart';
-import 'package:fcli/src/templates/core/usecase_template.dart';
-import 'package:fcli/src/templates/feature/entity_template.dart';
-import 'package:fcli/src/templates/feature/model_template.dart';
-import 'package:fcli/src/templates/feature/notifier_template.dart';
-import 'package:fcli/src/templates/feature/repository_abstract_template.dart';
-import 'package:fcli/src/templates/feature/screen_template.dart';
+import 'package:flg/src/config/fcli_config.dart';
+import 'package:flg/src/templates/core/exceptions_template.dart';
+import 'package:flg/src/templates/core/failures_template.dart';
+import 'package:flg/src/templates/core/usecase_template.dart';
+import 'package:flg/src/templates/feature/entity_template.dart';
+import 'package:flg/src/templates/feature/model_template.dart';
+import 'package:flg/src/templates/feature/notifier_template.dart';
+import 'package:flg/src/templates/feature/repository_abstract_template.dart';
+import 'package:flg/src/templates/feature/screen_template.dart';
 import 'package:test/test.dart';
 
 void main() {

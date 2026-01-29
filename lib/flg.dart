@@ -1,8 +1,8 @@
-/// Flutter CLI for generating projects with Clean Architecture.
+/// Flutter Generator - CLI for Clean Architecture projects.
 ///
 /// This library provides tools for creating and managing Flutter projects
 /// using Clean Architecture patterns with feature-first organization.
-library fcli;
+library flg;
 
 // Config
 export 'src/config/config_loader.dart';

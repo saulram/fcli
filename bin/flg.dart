@@ -2,17 +2,17 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 
-import 'package:fcli/src/commands/generate_command.dart';
-import 'package:fcli/src/commands/init_command.dart';
-import 'package:fcli/src/commands/setup_command.dart';
-import 'package:fcli/src/utils/console_utils.dart';
+import 'package:flg/src/commands/generate_command.dart';
+import 'package:flg/src/commands/init_command.dart';
+import 'package:flg/src/commands/setup_command.dart';
+import 'package:flg/src/utils/console_utils.dart';
 
 const String version = '1.0.0';
 
 Future<void> main(List<String> arguments) async {
   final runner = CommandRunner<int>(
-    'fcli',
-    'Flutter CLI for generating projects with Clean Architecture.\n\n'
+    'flg',
+    'Flutter Generator - CLI for Clean Architecture projects.\n\n'
         'Version: $version',
   )
     ..addCommand(InitCommand())
@@ -37,7 +37,7 @@ Future<void> main(List<String> arguments) async {
     if (arguments.isNotEmpty &&
         (arguments.first == '--version' ||
             (arguments.first == '-v' && arguments.length == 1))) {
-      print('fcli version $version');
+      print('flg version $version');
       exit(0);
     }
 

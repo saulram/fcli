@@ -16,7 +16,7 @@ class InitCommand extends Command<int> {
       ..addFlag(
         'force',
         abbr: 'f',
-        help: 'Force re-prompt for configuration even if fcli.json exists.',
+        help: 'Force re-prompt for configuration even if flg.json exists.',
         negatable: false,
       )
       ..addFlag(
@@ -86,14 +86,14 @@ class InitCommand extends Command<int> {
       'Initialize a new Flutter project with Clean Architecture.';
 
   @override
-  String get invocation => 'fcli init <project_name>';
+  String get invocation => 'flg init <project_name>';
 
   @override
   Future<int> run() async {
     // Check for project name
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a project name.');
-      ConsoleUtils.info('Usage: fcli init <project_name>');
+      ConsoleUtils.info('Usage: flg init <project_name>');
       return 1;
     }
 

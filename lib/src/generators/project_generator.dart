@@ -63,7 +63,7 @@ class ProjectGenerator {
     // Step 6: Generate main.dart
     await _generateMain();
 
-    // Step 7: Save fcli.json
+    // Step 7: Save flg.json
     await _saveFcliConfig();
 
     // Step 8: Run flutter pub get
@@ -117,7 +117,7 @@ class ProjectGenerator {
     paths.addAll([
       'test/',
       'pubspec.yaml',
-      'fcli.json',
+      'flg.json',
     ]);
 
     for (final path in paths) {
@@ -253,14 +253,14 @@ class ProjectGenerator {
   }
 
   Future<void> _saveFcliConfig() async {
-    ConsoleUtils.step('Saving fcli.json...');
+    ConsoleUtils.step('Saving flg.json...');
 
     await FileUtils.writeFile(
-      p.join(projectPath, 'fcli.json'),
+      p.join(projectPath, 'flg.json'),
       FcliJsonTemplate.generate(config),
     );
 
-    ConsoleUtils.success('fcli.json saved');
+    ConsoleUtils.success('flg.json saved');
   }
 
   Future<void> _runPubGet() async {

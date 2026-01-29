@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Localization (l10n) support
   - Automatic `build_runner` execution after project creation
 
-- **`setup` command** - Configure fcli in existing Flutter projects
+- **`setup` command** - Configure flg in existing Flutter projects
   - Detects existing `pubspec.yaml` and extracts project name
   - Adds required dependencies automatically
   - Creates Clean Architecture directory structure
@@ -54,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Widget templates (card, list tile, form)
 
 - **Configuration**:
-  - `fcli.json` file for project settings persistence
+  - `flg.json` file for project settings persistence
   - Automatic configuration detection in existing projects
 
 - **Developer experience**:

@@ -1,4 +1,4 @@
-import 'package:fcli/src/utils/string_utils.dart';
+import 'package:flg/src/utils/string_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

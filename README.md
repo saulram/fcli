@@ -1,13 +1,13 @@
-# fcli
+# flg
 
-[![Pub Version](https://img.shields.io/pub/v/fcli)](https://pub.dev/packages/fcli)
+[![Pub Version](https://img.shields.io/pub/v/flg)](https://pub.dev/packages/flg)
 [![Dart SDK](https://img.shields.io/badge/Dart-%5E3.0.0-blue)](https://dart.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-81%20passed-brightgreen)](https://github.com/saulram/fcli)
+[![Tests](https://img.shields.io/badge/tests-81%20passed-brightgreen)](https://github.com/saulram/flg)
 
-A powerful CLI tool for generating Flutter projects with **Clean Architecture**, feature-first organization, and your choice of modern state management.
+**Flutter Generator** - A powerful CLI tool for generating Flutter projects with **Clean Architecture**, feature-first organization, and your choice of modern state management.
 
-Inspired by Angular CLI, fcli eliminates boilerplate and enforces architectural consistency across your Flutter projects.
+Inspired by Angular CLI, flg eliminates boilerplate and enforces architectural consistency across your Flutter projects.
 
 ## Features
 
@@ -19,7 +19,7 @@ Inspired by Angular CLI, fcli eliminates boilerplate and enforces architectural 
 | **Routing** | GoRouter (default) or AutoRoute with code generation |
 | **Freezed Integration** | Immutable data classes with `sealed class` syntax |
 | **Code Generation** | Automatic `build_runner` execution |
-| **Existing Projects** | Set up fcli in any existing Flutter project |
+| **Existing Projects** | Set up flg in any existing Flutter project |
 
 ## Quick Start
 
@@ -27,11 +27,11 @@ Inspired by Angular CLI, fcli eliminates boilerplate and enforces architectural 
 
 ```bash
 # From pub.dev (recommended)
-dart pub global activate fcli
+dart pub global activate flg
 
 # Or from source
-git clone https://github.com/saulram/fcli.git
-cd fcli
+git clone https://github.com/saulram/flg.git
+cd flg
 dart pub global activate --source path .
 ```
 
@@ -39,44 +39,44 @@ dart pub global activate --source path .
 
 ```bash
 # Interactive mode (recommended for first-time users)
-fcli init my_app
+flg init my_app
 
 # Non-interactive with defaults
-fcli init my_app -s
+flg init my_app -s
 
 # With specific options
-fcli init my_app --state riverpod --router go_router --org com.mycompany
+flg init my_app --state riverpod --router go_router --org com.mycompany
 ```
 
 ### Set Up an Existing Project
 
 ```bash
 cd my_existing_flutter_app
-fcli setup
+flg setup
 ```
 
 ### Generate Components
 
 ```bash
 # Generate a feature
-fcli g f auth
+flg g f auth
 
 # Generate a screen
-fcli g s login -f auth
+flg g s login -f auth
 
 # Generate a widget
-fcli g w user_avatar -f auth
+flg g w user_avatar -f auth
 
 # Generate CRUD use cases
-fcli g u user -f user --crud
+flg g u user -f user --crud
 
 # Generate a repository
-fcli g r user -f user
+flg g r user -f user
 ```
 
 ## Commands
 
-### `fcli init <project_name>`
+### `flg init <project_name>`
 
 Creates a new Flutter project with Clean Architecture.
 
@@ -93,9 +93,9 @@ Creates a new Flutter project with Clean Architecture.
 | `--dry-run` | | Preview without creating files | `false` |
 | `--verbose` | `-v` | Show detailed output | `false` |
 
-### `fcli setup`
+### `flg setup`
 
-Configures fcli in an existing Flutter project.
+Configures flg in an existing Flutter project.
 
 | Option | Short | Description | Default |
 |--------|-------|-------------|---------|
@@ -106,12 +106,12 @@ Configures fcli in an existing Flutter project.
 | `--feature` | | Initial feature name | (none) |
 | `--skip-deps` | | Don't modify pubspec.yaml | `false` |
 | `--skip-prompts` | `-s` | Skip interactive prompts | `false` |
-| `--force` | `-f` | Reconfigure if fcli.json exists | `false` |
+| `--force` | `-f` | Reconfigure if flg.json exists | `false` |
 | `--dry-run` | | Preview without making changes | `false` |
 
-### `fcli generate <component>` (alias: `g`)
+### `flg generate <component>` (alias: `g`)
 
-Generates code components within an fcli project.
+Generates code components within a flg project.
 
 | Subcommand | Alias | Description |
 |------------|-------|-------------|
@@ -126,24 +126,24 @@ Generates code components within an fcli project.
 
 ```bash
 # Feature with custom entity
-fcli g f product --entity product_item
+flg g f product --entity product_item
 
 # Stateful widget
-fcli g w product_form -f product -t stateful
+flg g w product_form -f product -t stateful
 
 # Form widget
-fcli g w checkout_form -f checkout -t form
+flg g w checkout_form -f checkout -t form
 
 # Single use case
-fcli g u authenticate -f auth -a create
+flg g u authenticate -f auth -a create
 
 # All CRUD use cases at once
-fcli g u product -f product --crud
+flg g u product -f product --crud
 ```
 
 ## Project Structure
 
-After running `fcli init my_app`, you get:
+After running `flg init my_app`, you get:
 
 ```
 my_app/
@@ -189,7 +189,7 @@ my_app/
 │   ├── integration/
 │   └── fixtures/
 ├── pubspec.yaml
-└── fcli.json
+└── flg.json
 ```
 
 ## State Management
@@ -297,7 +297,7 @@ class HomeProvider extends ChangeNotifier {
 
 ## Configuration
 
-The `fcli.json` file stores project configuration:
+The `flg.json` file stores project configuration:
 
 ```json
 {
@@ -318,7 +318,7 @@ This file is automatically created during `init` or `setup` and is used by gener
 
 ## Architecture Overview
 
-fcli generates code following Clean Architecture principles:
+flg generates code following Clean Architecture principles:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -393,7 +393,7 @@ Ensure you've run `build_runner` after adding new providers. The `.g.dart` files
 
 ### Import errors
 
-fcli uses absolute package imports (`package:my_app/...`). If you rename your project, update the `name` field in `pubspec.yaml` and regenerate imports.
+flg uses absolute package imports (`package:my_app/...`). If you rename your project, update the `name` field in `pubspec.yaml` and regenerate imports.
 
 ## Requirements
 
@@ -402,10 +402,10 @@ fcli uses absolute package imports (`package:my_app/...`). If you rename your pr
 
 ## Contributing
 
-Contributions are welcome! Please see the [GitHub repository](https://github.com/saulram/fcli) for:
+Contributions are welcome! Please see the [GitHub repository](https://github.com/saulram/flg) for:
 
-- [Issue Tracker](https://github.com/saulram/fcli/issues)
-- [Pull Requests](https://github.com/saulram/fcli/pulls)
+- [Issue Tracker](https://github.com/saulram/flg/issues)
+- [Pull Requests](https://github.com/saulram/flg/pulls)
 
 ## License
 

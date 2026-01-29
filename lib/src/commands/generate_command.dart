@@ -60,7 +60,7 @@ abstract class GenerateSubcommand extends Command<int> {
 
     final config = ConfigLoader.load(projectPath);
     if (config == null) {
-      ConsoleUtils.error('Failed to load fcli.json configuration.');
+      ConsoleUtils.error('Failed to load flg.json configuration.');
       return null;
     }
 
@@ -80,13 +80,13 @@ class GenerateFeatureCommand extends GenerateSubcommand {
   String get description => 'Generate a new feature module with all layers.';
 
   @override
-  String get invocation => 'fcli generate feature <feature_name>';
+  String get invocation => 'flg generate feature <feature_name>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a feature name.');
-      ConsoleUtils.info('Usage: fcli g feature <feature_name>');
+      ConsoleUtils.info('Usage: flg g feature <feature_name>');
       return 1;
     }
 
@@ -106,7 +106,7 @@ class GenerateFeatureCommand extends GenerateSubcommand {
     await generator.generate(featureName);
 
     if (!dryRun) {
-      // Update fcli.json with new feature
+      // Update flg.json with new feature
       final updatedConfig = config.copyWith(
         features: [...config.features, featureName],
       );
@@ -144,13 +144,13 @@ class GenerateScreenCommand extends GenerateSubcommand {
   String get description => 'Generate a new screen widget.';
 
   @override
-  String get invocation => 'fcli generate screen <screen_name> -f <feature>';
+  String get invocation => 'flg generate screen <screen_name> -f <feature>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a screen name.');
-      ConsoleUtils.info('Usage: fcli g screen <screen_name> -f <feature>');
+      ConsoleUtils.info('Usage: flg g screen <screen_name> -f <feature>');
       return 1;
     }
 
@@ -209,13 +209,13 @@ class GenerateWidgetCommand extends GenerateSubcommand {
   String get description => 'Generate a new widget.';
 
   @override
-  String get invocation => 'fcli generate widget <widget_name> -f <feature>';
+  String get invocation => 'flg generate widget <widget_name> -f <feature>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a widget name.');
-      ConsoleUtils.info('Usage: fcli g widget <widget_name> -f <feature>');
+      ConsoleUtils.info('Usage: flg g widget <widget_name> -f <feature>');
       return 1;
     }
 
@@ -275,13 +275,13 @@ class GenerateProviderCommand extends GenerateSubcommand {
   String get description => 'Generate a new provider/notifier/bloc.';
 
   @override
-  String get invocation => 'fcli generate provider <provider_name> -f <feature>';
+  String get invocation => 'flg generate provider <provider_name> -f <feature>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a provider name.');
-      ConsoleUtils.info('Usage: fcli g provider <provider_name> -f <feature>');
+      ConsoleUtils.info('Usage: flg g provider <provider_name> -f <feature>');
       return 1;
     }
 
@@ -344,13 +344,13 @@ class GenerateUseCaseCommand extends GenerateSubcommand {
 
   @override
   String get invocation =>
-      'fcli generate usecase <entity_name> -f <feature> -a <action>';
+      'flg generate usecase <entity_name> -f <feature> -a <action>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide an entity name.');
-      ConsoleUtils.info('Usage: fcli g usecase <entity_name> -f <feature> -a <action>');
+      ConsoleUtils.info('Usage: flg g usecase <entity_name> -f <feature> -a <action>');
       return 1;
     }
 
@@ -422,13 +422,13 @@ class GenerateRepositoryCommand extends GenerateSubcommand {
   String get description => 'Generate a new repository (abstract + implementation).';
 
   @override
-  String get invocation => 'fcli generate repository <name> -f <feature>';
+  String get invocation => 'flg generate repository <name> -f <feature>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a repository name.');
-      ConsoleUtils.info('Usage: fcli g repository <name> -f <feature>');
+      ConsoleUtils.info('Usage: flg g repository <name> -f <feature>');
       return 1;
     }
 
