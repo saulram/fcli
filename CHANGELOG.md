@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-01-29
+
+### Added
+
+- **`task` command** (alias: `t`) - Manage git worktrees for AI agent workflows
+  - `task add <name>` - Create a new task worktree with a dedicated branch
+    - `--type` (`-t`): Branch prefix (feat, fix, ref) - default: `feat`
+    - `--agent` (`-a`): Setup for AI agent (runs `flutter pub get`, creates `.claude/TASK.md`)
+    - `--base` (`-b`): Base branch to create from - default: `main`
+    - `--dry-run`: Preview without creating files
+  - `task list` (alias: `ls`) - List all active task worktrees
+  - `task remove` (alias: `rm`) - Remove a task worktree
+    - `--force` (`-f`): Force remove even with uncommitted changes
+    - `--keep-branch`: Keep the branch after removing worktree
+  - `task status` (alias: `st`) - Show status dashboard with commits ahead/behind
+
+- **GitService** - New service for git operations (worktrees, branches, status)
+
+- **TaskInfo model** - Data model for task worktree information
+
+### Technical Details
+
+- Worktrees are created in `../[project-name]-tasks/` as sibling directories
+- Branch naming convention: `{type}/{name}` (e.g., `feat/auth-feature`)
+- AI agent setup creates `.claude/TASK.md` template for task context
+
 ## [1.0.0] - 2026-01-28
 
 ### Added

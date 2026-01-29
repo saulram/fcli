@@ -20,6 +20,7 @@ Inspired by Angular CLI, flg eliminates boilerplate and enforces architectural c
 | **Freezed Integration** | Immutable data classes with `sealed class` syntax |
 | **Code Generation** | Automatic `build_runner` execution |
 | **Existing Projects** | Set up flg in any existing Flutter project |
+| **AI Agent Workflows** | Git worktree management for parallel AI agents |
 
 ## Quick Start
 
@@ -140,6 +141,60 @@ flg g u authenticate -f auth -a create
 # All CRUD use cases at once
 flg g u product -f product --crud
 ```
+
+### `flg task` (alias: `t`)
+
+Manage git worktrees for AI agent workflows. Perfect for running multiple Claude Code, Cursor, or other AI agents in parallel on separate tasks.
+
+| Subcommand | Alias | Description |
+|------------|-------|-------------|
+| `add` | | Create a new task worktree with branch |
+| `list` | `ls` | List all active task worktrees |
+| `remove` | `rm` | Remove a task worktree |
+| `status` | `st` | Show status of all task worktrees |
+
+#### `flg task add <name>`
+
+| Option | Short | Description | Default |
+|--------|-------|-------------|---------|
+| `--type` | `-t` | Branch prefix: `feat`, `fix`, `ref` | `feat` |
+| `--agent` | `-a` | Setup for AI agent (pub get + .claude/TASK.md) | `false` |
+| `--base` | `-b` | Base branch to create from | `main` |
+| `--dry-run` | | Preview without creating | `false` |
+
+#### Examples
+
+```bash
+# Create tasks for parallel AI agents
+flg task add auth-feature --agent
+flg task add fix-payment --type fix --agent
+flg task add refactor-api --type ref --agent
+
+# Check status of all tasks
+flg task status
+
+# List active worktrees
+flg task list
+
+# Remove when done
+flg task remove auth-feature
+```
+
+#### Output Example
+
+```
+✓ Created task: feat-auth
+  → Path: /Users/dev/my_app-tasks/feat-auth
+  → Branch: feat/auth
+
+✓ Running flutter pub get...
+✓ Created .claude/TASK.md
+
+Ready for AI Agent:
+/Users/dev/my_app-tasks/feat-auth
+```
+
+Worktrees are created in `../[project-name]-tasks/` as sibling directories to your main project.
 
 ## Project Structure
 
