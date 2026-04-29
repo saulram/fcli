@@ -111,7 +111,8 @@ class SetupCommand extends Command<int> {
     if (ConfigLoader.configExists(projectPath) && !force) {
       ConsoleUtils.warning('flg.json already exists.');
       if (!ConsoleUtils.confirm('Do you want to reconfigure?')) {
-        ConsoleUtils.info('Use "flg g f <feature_name>" to generate features.');
+        ConsoleUtils.info(
+            'Use "flg feature <feature_name>" to generate features.');
         return 0;
       }
     }
@@ -184,9 +185,9 @@ class SetupCommand extends Command<int> {
     ConsoleUtils.success('flg setup completed!');
     ConsoleUtils.newLine();
     ConsoleUtils.info('Next steps:');
-    ConsoleUtils.step('flg g f <feature_name>  - Generate a new feature');
+    ConsoleUtils.step('flg feature <feature_name>  - Generate a new feature');
     ConsoleUtils.step(
-        'flg g s <screen_name> --feature=<feature>  - Generate a screen');
+        'flg screen <screen_name> --feature=<feature>  - Generate a screen');
     ConsoleUtils.step('flutter run');
 
     return 0;

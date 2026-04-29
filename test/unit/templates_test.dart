@@ -7,6 +7,7 @@ import 'package:flg/src/templates/feature/model_template.dart';
 import 'package:flg/src/templates/feature/notifier_template.dart';
 import 'package:flg/src/templates/feature/repository_abstract_template.dart';
 import 'package:flg/src/templates/feature/screen_template.dart';
+import 'package:flg/src/templates/feature/test_template.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -261,6 +262,24 @@ void main() {
         expect(code, isNot(contains('riverpod')));
         expect(code, isNot(contains('bloc')));
         expect(code, isNot(contains('provider')));
+      });
+    });
+
+    group('TestTemplate', () {
+      test('generates feature test scaffold', () {
+        final code = TestTemplate.generateFeature('user_profile');
+
+        expect(
+            code, contains("import 'package:flutter_test/flutter_test.dart'"));
+        expect(code, contains("group('User Profile feature'"));
+        expect(code, contains('expect(true, isTrue)'));
+      });
+
+      test('generates screen test scaffold', () {
+        final code = TestTemplate.generateScreen('login', 'auth');
+
+        expect(code, contains("group('Auth / Login screen'"));
+        expect(code, contains('testWidgets'));
       });
     });
   });

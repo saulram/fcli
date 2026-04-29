@@ -60,19 +60,25 @@ flg setup
 
 ```bash
 # Generate a feature
-flg g f auth
+flg feature auth
 
 # Generate a screen
-flg g s login -f auth
+flg screen login -f auth
 
 # Generate a widget
-flg g w user_avatar -f auth
+flg widget user_avatar -f auth
 
 # Generate CRUD use cases
-flg g u user -f user --crud
+flg usecase user -f user --crud
 
 # Generate a repository
-flg g r user -f user
+flg repository user -f user
+
+# Check project health
+flg doctor
+
+# Generate test scaffolds
+flg test feature auth
 ```
 
 ## Commands
@@ -110,36 +116,58 @@ Configures flg in an existing Flutter project.
 | `--force` | `-f` | Reconfigure if flg.json exists | `false` |
 | `--dry-run` | | Preview without making changes | `false` |
 
-### `flg generate {component}` (alias: `g`)
+### Direct generation commands
 
 Generates code components within a flg project.
 
-| Subcommand | Alias | Description |
-|------------|-------|-------------|
-| `feature` | `f` | Complete feature module with all layers |
-| `screen` | `s` | Screen widget with routing setup |
-| `widget` | `w` | Widget (stateless, stateful, card, list_tile, form) |
-| `provider` | `p` | Provider/Notifier/Bloc based on state management |
-| `usecase` | `u` | Use case (single action or CRUD) |
-| `repository` | `r` | Repository interface and implementation |
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `flg feature` | `flg f` | Complete feature module with all layers |
+| `flg screen` | `flg s` | Screen widget with routing setup |
+| `flg widget` | `flg w` | Widget (stateless, stateful, card, list_tile, form) |
+| `flg provider` | `flg p` | Provider/Notifier/Bloc based on state management |
+| `flg usecase` | `flg u` | Use case (single action or CRUD) |
+| `flg repository` | `flg r` | Repository interface and implementation |
+
+`flg generate` and `flg g` remain available as backwards-compatible aliases.
 
 #### Examples
 
 ```bash
-# Feature with custom entity
-flg g f product --entity product_item
+# Feature module
+flg feature product
 
 # Stateful widget
-flg g w product_form -f product -t stateful
+flg widget product_form -f product -t stateful
 
 # Form widget
-flg g w checkout_form -f checkout -t form
+flg widget checkout_form -f checkout -t form
 
 # Single use case
-flg g u authenticate -f auth -a create
+flg usecase authenticate -f auth -a create
 
 # All CRUD use cases at once
-flg g u product -f product --crud
+flg usecase product -f product --crud
+```
+
+### `flg doctor`
+
+Checks local tooling and FLG project health.
+
+| Option | Description |
+|--------|-------------|
+| `--json` | Print machine-readable output |
+| `--analyze` | Run `flutter analyze` as part of the checks |
+
+### `flg test`
+
+Generates test scaffolds under `test/features/`.
+
+```bash
+flg test feature auth
+flg test screen login -f auth
+flg test usecase authenticate -f auth
+flg test repository user -f user
 ```
 
 ### `flg task` (alias: `t`)

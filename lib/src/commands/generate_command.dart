@@ -30,6 +30,9 @@ class GenerateCommand extends Command<int> {
   @override
   String get description =>
       'Generate code components (feature, screen, widget, etc.).';
+
+  @override
+  String get invocation => 'flg generate <component>';
 }
 
 /// Base class for generate subcommands.
@@ -81,13 +84,13 @@ class GenerateFeatureCommand extends GenerateSubcommand {
   String get description => 'Generate a new feature module with all layers.';
 
   @override
-  String get invocation => 'flg generate feature <feature_name>';
+  String get invocation => 'flg feature <feature_name>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a feature name.');
-      ConsoleUtils.info('Usage: flg g feature <feature_name>');
+      ConsoleUtils.info('Usage: flg feature <feature_name>');
       return 1;
     }
 
@@ -145,13 +148,13 @@ class GenerateScreenCommand extends GenerateSubcommand {
   String get description => 'Generate a new screen widget.';
 
   @override
-  String get invocation => 'flg generate screen <screen_name> -f <feature>';
+  String get invocation => 'flg screen <screen_name> -f <feature>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a screen name.');
-      ConsoleUtils.info('Usage: flg g screen <screen_name> -f <feature>');
+      ConsoleUtils.info('Usage: flg screen <screen_name> -f <feature>');
       return 1;
     }
 
@@ -210,13 +213,13 @@ class GenerateWidgetCommand extends GenerateSubcommand {
   String get description => 'Generate a new widget.';
 
   @override
-  String get invocation => 'flg generate widget <widget_name> -f <feature>';
+  String get invocation => 'flg widget <widget_name> -f <feature>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a widget name.');
-      ConsoleUtils.info('Usage: flg g widget <widget_name> -f <feature>');
+      ConsoleUtils.info('Usage: flg widget <widget_name> -f <feature>');
       return 1;
     }
 
@@ -276,13 +279,13 @@ class GenerateProviderCommand extends GenerateSubcommand {
   String get description => 'Generate a new provider/notifier/bloc.';
 
   @override
-  String get invocation => 'flg generate provider <provider_name> -f <feature>';
+  String get invocation => 'flg provider <provider_name> -f <feature>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a provider name.');
-      ConsoleUtils.info('Usage: flg g provider <provider_name> -f <feature>');
+      ConsoleUtils.info('Usage: flg provider <provider_name> -f <feature>');
       return 1;
     }
 
@@ -344,15 +347,14 @@ class GenerateUseCaseCommand extends GenerateSubcommand {
   String get description => 'Generate a new use case.';
 
   @override
-  String get invocation =>
-      'flg generate usecase <entity_name> -f <feature> -a <action>';
+  String get invocation => 'flg usecase <entity_name> -f <feature> -a <action>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide an entity name.');
       ConsoleUtils.info(
-          'Usage: flg g usecase <entity_name> -f <feature> -a <action>');
+          'Usage: flg usecase <entity_name> -f <feature> -a <action>');
       return 1;
     }
 
@@ -426,13 +428,13 @@ class GenerateRepositoryCommand extends GenerateSubcommand {
       'Generate a new repository (abstract + implementation).';
 
   @override
-  String get invocation => 'flg generate repository <name> -f <feature>';
+  String get invocation => 'flg repository <name> -f <feature>';
 
   @override
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide a repository name.');
-      ConsoleUtils.info('Usage: flg g repository <name> -f <feature>');
+      ConsoleUtils.info('Usage: flg repository <name> -f <feature>');
       return 1;
     }
 

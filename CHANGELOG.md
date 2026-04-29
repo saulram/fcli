@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-04-29
+
+### Added
+
+- Added top-level generation commands such as `flg feature`, `flg screen`, and `flg widget`.
+- Added `flg doctor` for local tooling and FLG project health checks.
+- Added `flg test` for generating feature, screen, use case, and repository test scaffolds.
+
+### Changed
+
+- Kept `flg generate` and `flg g` as backwards-compatible aliases while making direct commands the documented default.
+
 ## [1.2.3] - 2026-04-29
 
 ### Changed

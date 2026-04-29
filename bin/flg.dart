@@ -2,13 +2,15 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 
+import 'package:flg/src/commands/doctor_command.dart';
 import 'package:flg/src/commands/generate_command.dart';
 import 'package:flg/src/commands/init_command.dart';
 import 'package:flg/src/commands/setup_command.dart';
 import 'package:flg/src/commands/task_command.dart';
+import 'package:flg/src/commands/test_command.dart';
 import 'package:flg/src/utils/console_utils.dart';
 
-const String version = '1.2.0';
+const String version = '1.3.0';
 
 Future<void> main(List<String> arguments) async {
   final runner = CommandRunner<int>(
@@ -17,8 +19,16 @@ Future<void> main(List<String> arguments) async {
         'Version: $version',
   )
     ..addCommand(InitCommand())
+    ..addCommand(DoctorCommand())
+    ..addCommand(GenerateFeatureCommand())
+    ..addCommand(GenerateScreenCommand())
+    ..addCommand(GenerateWidgetCommand())
+    ..addCommand(GenerateProviderCommand())
+    ..addCommand(GenerateUseCaseCommand())
+    ..addCommand(GenerateRepositoryCommand())
     ..addCommand(GenerateCommand())
     ..addCommand(SetupCommand())
+    ..addCommand(TestCommand())
     ..addCommand(TaskCommand());
 
   // Add global flags

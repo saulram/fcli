@@ -9,9 +9,12 @@ export 'src/config/config_loader.dart';
 export 'src/config/fcli_config.dart';
 
 // Commands
+export 'src/commands/doctor_command.dart';
 export 'src/commands/generate_command.dart';
 export 'src/commands/init_command.dart';
 export 'src/commands/setup_command.dart';
+export 'src/commands/task_command.dart';
+export 'src/commands/test_command.dart';
 
 // Generators
 export 'src/generators/feature_generator.dart';
@@ -19,6 +22,7 @@ export 'src/generators/project_generator.dart';
 export 'src/generators/provider_generator.dart';
 export 'src/generators/repository_generator.dart';
 export 'src/generators/screen_generator.dart';
+export 'src/generators/test_generator.dart';
 export 'src/generators/usecase_generator.dart';
 export 'src/generators/widget_generator.dart';
 
@@ -37,6 +41,7 @@ export 'src/templates/feature/notifier_template.dart';
 export 'src/templates/feature/repository_abstract_template.dart';
 export 'src/templates/feature/repository_impl_template.dart';
 export 'src/templates/feature/screen_template.dart';
+export 'src/templates/feature/test_template.dart';
 export 'src/templates/feature/widget_template.dart';
 
 // Templates - Config
