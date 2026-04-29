@@ -1,7 +1,7 @@
 import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
-/// Template for generating data/repositories/<feature>_repository_impl.dart
+/// Template for generating `data/repositories/{feature}_repository_impl.dart`.
 class RepositoryImplTemplate {
   RepositoryImplTemplate._();
 

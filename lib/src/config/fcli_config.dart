@@ -51,9 +51,7 @@ enum Platform {
   }
 
   static List<Platform> fromStringList(List<dynamic> values) {
-    return values
-        .map((v) => fromString(v.toString()))
-        .toList();
+    return values.map((v) => fromString(v.toString())).toList();
   }
 }
 
@@ -89,7 +87,9 @@ class FcliConfig {
           ? Platform.fromStringList(json['platforms'] as List<dynamic>)
           : const [Platform.android, Platform.ios],
       features: json['features'] != null
-          ? (json['features'] as List<dynamic>).map((e) => e.toString()).toList()
+          ? (json['features'] as List<dynamic>)
+              .map((e) => e.toString())
+              .toList()
           : const ['home'],
       generateTests: json['generateTests'] as bool? ?? true,
       l10n: json['l10n'] as bool? ?? false,

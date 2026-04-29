@@ -64,14 +64,18 @@ class RepositoryGenerator {
     );
 
     if (verbose) {
-      ConsoleUtils.info('Generating repository: $pascalRepo in feature: $featureName');
+      ConsoleUtils.info(
+          'Generating repository: $pascalRepo in feature: $featureName');
     }
 
     if (dryRun) {
-      ConsoleUtils.muted('Would create: $domainPath/${snakeRepo}_repository.dart');
-      ConsoleUtils.muted('Would create: $dataPath/${snakeRepo}_repository_impl.dart');
+      ConsoleUtils.muted(
+          'Would create: $domainPath/${snakeRepo}_repository.dart');
+      ConsoleUtils.muted(
+          'Would create: $dataPath/${snakeRepo}_repository_impl.dart');
       if (withDataSource) {
-        ConsoleUtils.muted('Would create: $datasourcePath/${snakeRepo}_remote_datasource.dart');
+        ConsoleUtils.muted(
+            'Would create: $datasourcePath/${snakeRepo}_remote_datasource.dart');
       }
       return;
     }
@@ -102,7 +106,8 @@ class RepositoryGenerator {
 
     // Generate data source
     if (withDataSource) {
-      final remoteDsPath = p.join(datasourcePath, '${snakeRepo}_remote_datasource.dart');
+      final remoteDsPath =
+          p.join(datasourcePath, '${snakeRepo}_remote_datasource.dart');
       await FileUtils.writeFile(
         remoteDsPath,
         DataSourceTemplate.generate(repositoryName, config),

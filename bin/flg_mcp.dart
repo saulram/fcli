@@ -24,7 +24,7 @@ base class FlgMcpServer extends MCPServer with ToolsSupport {
       : super.fromStreamChannel(
           implementation: Implementation(
             name: 'flg',
-            version: '1.2.2',
+            version: '1.2.3',
           ),
           instructions: '''
 FLG - Flutter Generator CLI
@@ -142,7 +142,8 @@ Available tools:
           description: 'Organization identifier (e.g., "com.example")',
         ),
         'skip_prompts': Schema.bool(
-          description: 'Skip interactive prompts and use defaults (recommended for AI)',
+          description:
+              'Skip interactive prompts and use defaults (recommended for AI)',
         ),
       },
       required: ['name'],
@@ -379,7 +380,8 @@ Available tools:
     if (pathError != null) return _errorResult(pathError);
 
     final workingDir = path ?? io.Directory.current.path;
-    return _runFlg(['generate', 'screen', name, '--feature', feature], workingDir);
+    return _runFlg(
+        ['generate', 'screen', name, '--feature', feature], workingDir);
   }
 
   FutureOr<CallToolResult> _generateWidget(CallToolRequest request) async {
@@ -402,7 +404,8 @@ Available tools:
     if (type != null) {
       const validTypes = ['stateless', 'stateful', 'card', 'list_tile', 'form'];
       if (!validTypes.contains(type)) {
-        return _errorResult('Widget type must be one of: ${validTypes.join(', ')}');
+        return _errorResult(
+            'Widget type must be one of: ${validTypes.join(', ')}');
       }
     }
 
@@ -429,7 +432,8 @@ Available tools:
     if (pathError != null) return _errorResult(pathError);
 
     final workingDir = path ?? io.Directory.current.path;
-    return _runFlg(['generate', 'provider', name, '--feature', feature], workingDir);
+    return _runFlg(
+        ['generate', 'provider', name, '--feature', feature], workingDir);
   }
 
   FutureOr<CallToolResult> _generateUsecase(CallToolRequest request) async {
@@ -453,7 +457,8 @@ Available tools:
     if (action != null) {
       const validActions = ['get', 'create', 'update', 'delete'];
       if (!validActions.contains(action)) {
-        return _errorResult('Action must be one of: ${validActions.join(', ')}');
+        return _errorResult(
+            'Action must be one of: ${validActions.join(', ')}');
       }
     }
 
@@ -481,7 +486,8 @@ Available tools:
     if (pathError != null) return _errorResult(pathError);
 
     final workingDir = path ?? io.Directory.current.path;
-    return _runFlg(['generate', 'repository', name, '--feature', feature], workingDir);
+    return _runFlg(
+        ['generate', 'repository', name, '--feature', feature], workingDir);
   }
 
   FutureOr<CallToolResult> _setup(CallToolRequest request) async {
@@ -541,7 +547,8 @@ Available tools:
   // Helper Methods
   // ============================================================
 
-  Future<CallToolResult> _runFlg(List<String> args, String workingDirectory) async {
+  Future<CallToolResult> _runFlg(
+      List<String> args, String workingDirectory) async {
     try {
       final result = await io.Process.run(
         'flg',
@@ -568,7 +575,8 @@ Available tools:
       return CallToolResult(
         content: [
           TextContent(
-            text: stdout.isNotEmpty ? stdout : 'Command completed successfully.',
+            text:
+                stdout.isNotEmpty ? stdout : 'Command completed successfully.',
           ),
         ],
       );

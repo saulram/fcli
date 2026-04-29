@@ -5,6 +5,7 @@ import '../../utils/string_utils.dart';
 class AppRouterTemplate {
   AppRouterTemplate._();
 
+  /// Generates router configuration code for the selected router package.
   static String generate(FcliConfig config) {
     if (config.usesGoRouter) {
       return _generateGoRouter(config);

@@ -115,7 +115,8 @@ class FeatureGenerator {
 
     // Repository interface
     await FileUtils.writeFile(
-      p.join(featurePath, 'domain', 'repositories', '${snakeName}_repository.dart'),
+      p.join(featurePath, 'domain', 'repositories',
+          '${snakeName}_repository.dart'),
       RepositoryAbstractTemplate.generate(featureName, config),
     );
   }
@@ -134,13 +135,15 @@ class FeatureGenerator {
 
     // Repository implementation
     await FileUtils.writeFile(
-      p.join(featurePath, 'data', 'repositories', '${snakeName}_repository_impl.dart'),
+      p.join(featurePath, 'data', 'repositories',
+          '${snakeName}_repository_impl.dart'),
       RepositoryImplTemplate.generate(featureName, config),
     );
 
     // Remote data source
     await FileUtils.writeFile(
-      p.join(featurePath, 'data', 'datasources', '${snakeName}_remote_datasource.dart'),
+      p.join(featurePath, 'data', 'datasources',
+          '${snakeName}_remote_datasource.dart'),
       DataSourceTemplate.generate(featureName, config),
     );
   }
@@ -153,7 +156,8 @@ class FeatureGenerator {
 
     // Screen
     await FileUtils.writeFile(
-      p.join(featurePath, 'presentation', 'screens', '${snakeName}_screen.dart'),
+      p.join(
+          featurePath, 'presentation', 'screens', '${snakeName}_screen.dart'),
       ScreenTemplate.generate(featureName, featureName, config),
     );
 
@@ -167,7 +171,8 @@ class FeatureGenerator {
     // State file for Riverpod
     if (config.usesRiverpod) {
       await FileUtils.writeFile(
-        p.join(featurePath, 'presentation', 'providers', '${snakeName}_state.dart'),
+        p.join(featurePath, 'presentation', 'providers',
+            '${snakeName}_state.dart'),
         NotifierTemplate.generateState(featureName, config),
       );
     }
@@ -175,11 +180,13 @@ class FeatureGenerator {
     // Event and State files for Bloc
     if (config.usesBloc) {
       await FileUtils.writeFile(
-        p.join(featurePath, 'presentation', 'providers', '${snakeName}_event.dart'),
+        p.join(featurePath, 'presentation', 'providers',
+            '${snakeName}_event.dart'),
         NotifierTemplate.generateBlocEvents(featureName),
       );
       await FileUtils.writeFile(
-        p.join(featurePath, 'presentation', 'providers', '${snakeName}_state.dart'),
+        p.join(featurePath, 'presentation', 'providers',
+            '${snakeName}_state.dart'),
         NotifierTemplate.generateBlocStates(featureName),
       );
     }

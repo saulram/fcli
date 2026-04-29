@@ -28,7 +28,8 @@ class GenerateCommand extends Command<int> {
   List<String> get aliases => ['g'];
 
   @override
-  String get description => 'Generate code components (feature, screen, widget, etc.).';
+  String get description =>
+      'Generate code components (feature, screen, widget, etc.).';
 }
 
 /// Base class for generate subcommands.
@@ -350,7 +351,8 @@ class GenerateUseCaseCommand extends GenerateSubcommand {
   Future<int> run() async {
     if (argResults!.rest.isEmpty) {
       ConsoleUtils.error('Please provide an entity name.');
-      ConsoleUtils.info('Usage: flg g usecase <entity_name> -f <feature> -a <action>');
+      ConsoleUtils.info(
+          'Usage: flg g usecase <entity_name> -f <feature> -a <action>');
       return 1;
     }
 
@@ -380,7 +382,8 @@ class GenerateUseCaseCommand extends GenerateSubcommand {
       await generator.generateCommon(featureName, entityName: entityName);
     } else {
       if (action == null) {
-        ConsoleUtils.error('Please specify an action with -a <action> or use --crud.');
+        ConsoleUtils.error(
+            'Please specify an action with -a <action> or use --crud.');
         return 1;
       }
       await generator.generate(action, entityName, featureName);
@@ -419,7 +422,8 @@ class GenerateRepositoryCommand extends GenerateSubcommand {
   List<String> get aliases => ['r'];
 
   @override
-  String get description => 'Generate a new repository (abstract + implementation).';
+  String get description =>
+      'Generate a new repository (abstract + implementation).';
 
   @override
   String get invocation => 'flg generate repository <name> -f <feature>';

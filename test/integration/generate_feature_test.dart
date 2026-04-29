@@ -254,10 +254,18 @@ void main() {
       );
 
       expect(repoContent, contains('abstract class NotificationRepository'));
-      expect(repoContent, contains('Future<Either<Failure, List<NotificationEntity>>> getAll()'));
-      expect(repoContent, contains('Future<Either<Failure, NotificationEntity>> getById(String id)'));
-      expect(repoContent, contains('Future<Either<Failure, NotificationEntity>> create'));
-      expect(repoContent, contains('Future<Either<Failure, NotificationEntity>> update'));
+      expect(
+          repoContent,
+          contains(
+              'Future<Either<Failure, List<NotificationEntity>>> getAll()'));
+      expect(
+          repoContent,
+          contains(
+              'Future<Either<Failure, NotificationEntity>> getById(String id)'));
+      expect(repoContent,
+          contains('Future<Either<Failure, NotificationEntity>> create'));
+      expect(repoContent,
+          contains('Future<Either<Failure, NotificationEntity>> update'));
       expect(repoContent, contains('Future<Either<Failure, void>> delete'));
     });
   });

@@ -102,7 +102,8 @@ class SetupCommand extends Command<int> {
     if (!FileUtils.fileExistsSync(pubspecPath)) {
       ConsoleUtils.error('No pubspec.yaml found in current directory.');
       ConsoleUtils.info('Please run this command from a Flutter project root.');
-      ConsoleUtils.info('Or use "flg init <project_name>" to create a new project.');
+      ConsoleUtils.info(
+          'Or use "flg init <project_name>" to create a new project.');
       return 1;
     }
 
@@ -184,7 +185,8 @@ class SetupCommand extends Command<int> {
     ConsoleUtils.newLine();
     ConsoleUtils.info('Next steps:');
     ConsoleUtils.step('flg g f <feature_name>  - Generate a new feature');
-    ConsoleUtils.step('flg g s <screen_name> --feature=<feature>  - Generate a screen');
+    ConsoleUtils.step(
+        'flg g s <screen_name> --feature=<feature>  - Generate a screen');
     ConsoleUtils.step('flutter run');
 
     return 0;
@@ -237,9 +239,10 @@ class SetupCommand extends Command<int> {
 
     // Initial feature
     final initialFeature = ConsoleUtils.prompt(
-      'Initial feature name (leave empty to skip)',
-      defaultValue: '',
-    ) ?? '';
+          'Initial feature name (leave empty to skip)',
+          defaultValue: '',
+        ) ??
+        '';
 
     ConsoleUtils.newLine();
 
@@ -321,7 +324,8 @@ class SetupCommand extends Command<int> {
     }
   }
 
-  Future<void> _updatePubspec(String pubspecPath, FcliConfig config, bool verbose) async {
+  Future<void> _updatePubspec(
+      String pubspecPath, FcliConfig config, bool verbose) async {
     ConsoleUtils.step('Adding dependencies to pubspec.yaml...');
 
     final content = FileUtils.readFileSync(pubspecPath);
@@ -330,16 +334,16 @@ class SetupCommand extends Command<int> {
 
     // Parse existing pubspec
     final yaml = loadYaml(content) as YamlMap;
-    final existingDeps = (yaml['dependencies'] as YamlMap?)?.keys.toList() ?? [];
-    final existingDevDeps = (yaml['dev_dependencies'] as YamlMap?)?.keys.toList() ?? [];
+    final existingDeps =
+        (yaml['dependencies'] as YamlMap?)?.keys.toList() ?? [];
+    final existingDevDeps =
+        (yaml['dev_dependencies'] as YamlMap?)?.keys.toList() ?? [];
 
     // Filter out already existing dependencies
-    final newDeps = deps.entries
-        .where((e) => !existingDeps.contains(e.key))
-        .toList();
-    final newDevDeps = devDeps.entries
-        .where((e) => !existingDevDeps.contains(e.key))
-        .toList();
+    final newDeps =
+        deps.entries.where((e) => !existingDeps.contains(e.key)).toList();
+    final newDevDeps =
+        devDeps.entries.where((e) => !existingDevDeps.contains(e.key)).toList();
 
     if (newDeps.isEmpty && newDevDeps.isEmpty) {
       ConsoleUtils.success('All dependencies already present');
@@ -350,30 +354,30 @@ class SetupCommand extends Command<int> {
     var updatedContent = content;
 
     if (newDeps.isNotEmpty) {
-      final depsSection = newDeps.map((e) => '  ${e.key}: ${e.value}').join('\n');
+      final depsSection =
+          newDeps.map((e) => '  ${e.key}: ${e.value}').join('\n');
       // Find dependencies: section and append
       final depsPattern = RegExp(r'dependencies:\s*\n');
       final match = depsPattern.firstMatch(updatedContent);
       if (match != null) {
         final insertPos = match.end;
-        updatedContent = updatedContent.substring(0, insertPos) +
-            depsSection +
-            '\n' +
-            updatedContent.substring(insertPos);
+        updatedContent =
+            '${updatedContent.substring(0, insertPos)}$depsSection\n'
+            '${updatedContent.substring(insertPos)}';
       }
     }
 
     if (newDevDeps.isNotEmpty) {
-      final devDepsSection = newDevDeps.map((e) => '  ${e.key}: ${e.value}').join('\n');
+      final devDepsSection =
+          newDevDeps.map((e) => '  ${e.key}: ${e.value}').join('\n');
       // Find dev_dependencies: section and append
       final devDepsPattern = RegExp(r'dev_dependencies:\s*\n');
       final match = devDepsPattern.firstMatch(updatedContent);
       if (match != null) {
         final insertPos = match.end;
-        updatedContent = updatedContent.substring(0, insertPos) +
-            devDepsSection +
-            '\n' +
-            updatedContent.substring(insertPos);
+        updatedContent =
+            '${updatedContent.substring(0, insertPos)}$devDepsSection\n'
+            '${updatedContent.substring(insertPos)}';
       } else {
         // dev_dependencies section doesn't exist, add it
         updatedContent += '\ndev_dependencies:\n$devDepsSection\n';
@@ -387,7 +391,8 @@ class SetupCommand extends Command<int> {
         ConsoleUtils.muted('  Added: ${newDeps.map((e) => e.key).join(', ')}');
       }
       if (newDevDeps.isNotEmpty) {
-        ConsoleUtils.muted('  Added dev: ${newDevDeps.map((e) => e.key).join(', ')}');
+        ConsoleUtils.muted(
+            '  Added dev: ${newDevDeps.map((e) => e.key).join(', ')}');
       }
     }
 
@@ -450,7 +455,8 @@ class SetupCommand extends Command<int> {
     return devDeps;
   }
 
-  Future<void> _createDirectoryStructure(String libPath, String projectPath) async {
+  Future<void> _createDirectoryStructure(
+      String libPath, String projectPath) async {
     ConsoleUtils.step('Creating directory structure...');
 
     final directories = [
@@ -547,7 +553,8 @@ class SetupCommand extends Command<int> {
     );
 
     if (result.failed) {
-      ConsoleUtils.warning('flutter pub get failed - you may need to run it manually');
+      ConsoleUtils.warning(
+          'flutter pub get failed - you may need to run it manually');
       if (verbose) {
         ConsoleUtils.muted(result.stderr);
       }
@@ -567,8 +574,10 @@ class SetupCommand extends Command<int> {
     );
 
     if (result.failed) {
-      ConsoleUtils.warning('build_runner failed - you may need to run it manually');
-      ConsoleUtils.muted('Run: flutter pub run build_runner build --delete-conflicting-outputs');
+      ConsoleUtils.warning(
+          'build_runner failed - you may need to run it manually');
+      ConsoleUtils.muted(
+          'Run: flutter pub run build_runner build --delete-conflicting-outputs');
       if (verbose) {
         ConsoleUtils.muted(result.stderr);
       }

@@ -77,7 +77,7 @@ flg g r user -f user
 
 ## Commands
 
-### `flg init <project_name>`
+### `flg init {project_name}`
 
 Creates a new Flutter project with Clean Architecture.
 
@@ -110,7 +110,7 @@ Configures flg in an existing Flutter project.
 | `--force` | `-f` | Reconfigure if flg.json exists | `false` |
 | `--dry-run` | | Preview without making changes | `false` |
 
-### `flg generate <component>` (alias: `g`)
+### `flg generate {component}` (alias: `g`)
 
 Generates code components within a flg project.
 
@@ -153,7 +153,7 @@ Manage git worktrees for AI agent workflows. Perfect for running multiple Claude
 | `remove` | `rm` | Remove a task worktree |
 | `status` | `st` | Show status of all task worktrees |
 
-#### `flg task add <name>`
+#### `flg task add {name}`
 
 | Option | Short | Description | Default |
 |--------|-------|-------------|---------|

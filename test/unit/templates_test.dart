@@ -94,10 +94,14 @@ void main() {
             contains('Future<Either<Failure, List<UserEntity>>> getAll()'));
         expect(code,
             contains('Future<Either<Failure, UserEntity>> getById(String id)'));
-        expect(code, contains(
-            'Future<Either<Failure, UserEntity>> create(UserEntity entity)'));
-        expect(code, contains(
-            'Future<Either<Failure, UserEntity>> update(UserEntity entity)'));
+        expect(
+            code,
+            contains(
+                'Future<Either<Failure, UserEntity>> create(UserEntity entity)'));
+        expect(
+            code,
+            contains(
+                'Future<Either<Failure, UserEntity>> update(UserEntity entity)'));
         expect(
             code, contains('Future<Either<Failure, void>> delete(String id)'));
       });
@@ -108,7 +112,10 @@ void main() {
         final config = FcliConfig(projectName: 'app', useFreezed: true);
         final code = ModelTemplate.generate('user', config);
 
-        expect(code, contains("import 'package:freezed_annotation/freezed_annotation.dart'"));
+        expect(
+            code,
+            contains(
+                "import 'package:freezed_annotation/freezed_annotation.dart'"));
         expect(code, contains("part 'user_model.freezed.dart'"));
         expect(code, contains("part 'user_model.g.dart'"));
         expect(code, contains('@freezed'));
@@ -137,7 +144,10 @@ void main() {
         );
         final code = NotifierTemplate.generate('user', config);
 
-        expect(code, contains("import 'package:riverpod_annotation/riverpod_annotation.dart'"));
+        expect(
+            code,
+            contains(
+                "import 'package:riverpod_annotation/riverpod_annotation.dart'"));
         expect(code, contains("part 'user_provider.g.dart'"));
         expect(code, contains('@riverpod'));
         expect(code, contains(r'class User extends _$User'));
@@ -155,8 +165,10 @@ void main() {
         );
         final code = NotifierTemplate.generate('user', config);
 
-        expect(code, contains("import 'package:flutter_bloc/flutter_bloc.dart'"));
-        expect(code, contains('class UserBloc extends Bloc<UserEvent, UserState>'));
+        expect(
+            code, contains("import 'package:flutter_bloc/flutter_bloc.dart'"));
+        expect(code,
+            contains('class UserBloc extends Bloc<UserEvent, UserState>'));
         expect(code, contains('on<LoadUsers>'));
         expect(code, contains('on<LoadUser>'));
         expect(code, contains('on<CreateUser>'));
@@ -182,7 +194,10 @@ void main() {
         final config = FcliConfig(projectName: 'app');
         final code = NotifierTemplate.generateState('user', config);
 
-        expect(code, contains("import 'package:freezed_annotation/freezed_annotation.dart'"));
+        expect(
+            code,
+            contains(
+                "import 'package:freezed_annotation/freezed_annotation.dart'"));
         expect(code, contains("part 'user_state.freezed.dart'"));
         expect(code, contains('@freezed'));
         expect(code, contains(r'class UserState with _$UserState'));
@@ -200,8 +215,12 @@ void main() {
         );
         final code = ScreenTemplate.generate('home', 'home', config);
 
-        expect(code, contains("import 'package:flutter_riverpod/flutter_riverpod.dart'"));
-        expect(code, contains('class HomeScreen extends ConsumerStatefulWidget'));
+        expect(
+            code,
+            contains(
+                "import 'package:flutter_riverpod/flutter_riverpod.dart'"));
+        expect(
+            code, contains('class HomeScreen extends ConsumerStatefulWidget'));
         expect(code, contains('ConsumerState<HomeScreen>'));
         expect(code, contains('ref.watch'));
         expect(code, contains('ref.read'));
@@ -214,7 +233,8 @@ void main() {
         );
         final code = ScreenTemplate.generate('home', 'home', config);
 
-        expect(code, contains("import 'package:flutter_bloc/flutter_bloc.dart'"));
+        expect(
+            code, contains("import 'package:flutter_bloc/flutter_bloc.dart'"));
         expect(code, contains('class HomeScreen extends StatefulWidget'));
         expect(code, contains('BlocBuilder<HomeBloc, HomeState>'));
         expect(code, contains("context.read<HomeBloc>()"));

@@ -1,7 +1,7 @@
 import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
-/// Template for generating presentation/providers/<feature>_notifier.dart
+/// Template for generating `presentation/providers/{feature}_notifier.dart`.
 class NotifierTemplate {
   NotifierTemplate._();
 
@@ -212,10 +212,10 @@ class ${pascalName}Bloc extends Bloc<${pascalName}Event, ${pascalName}State> {
   })  : _repository = repository,
         super(const ${pascalName}Initial()) {
     on<Load${pascalName}s>(_onLoadAll);
-    on<Load${pascalName}>(_onLoadById);
-    on<Create${pascalName}>(_onCreate);
-    on<Update${pascalName}>(_onUpdate);
-    on<Delete${pascalName}>(_onDelete);
+    on<Load$pascalName>(_onLoadById);
+    on<Create$pascalName>(_onCreate);
+    on<Update$pascalName>(_onUpdate);
+    on<Delete$pascalName>(_onDelete);
   }
 
   final ${pascalName}Repository _repository;
@@ -235,7 +235,7 @@ class ${pascalName}Bloc extends Bloc<${pascalName}Event, ${pascalName}State> {
   }
 
   Future<void> _onLoadById(
-    Load${pascalName} event,
+    Load$pascalName event,
     Emitter<${pascalName}State> emit,
   ) async {
     emit(const ${pascalName}Loading());
@@ -249,7 +249,7 @@ class ${pascalName}Bloc extends Bloc<${pascalName}Event, ${pascalName}State> {
   }
 
   Future<void> _onCreate(
-    Create${pascalName} event,
+    Create$pascalName event,
     Emitter<${pascalName}State> emit,
   ) async {
     emit(const ${pascalName}Loading());
@@ -263,7 +263,7 @@ class ${pascalName}Bloc extends Bloc<${pascalName}Event, ${pascalName}State> {
   }
 
   Future<void> _onUpdate(
-    Update${pascalName} event,
+    Update$pascalName event,
     Emitter<${pascalName}State> emit,
   ) async {
     emit(const ${pascalName}Loading());
@@ -277,7 +277,7 @@ class ${pascalName}Bloc extends Bloc<${pascalName}Event, ${pascalName}State> {
   }
 
   Future<void> _onDelete(
-    Delete${pascalName} event,
+    Delete$pascalName event,
     Emitter<${pascalName}State> emit,
   ) async {
     emit(const ${pascalName}Loading());
@@ -522,8 +522,8 @@ class Load${pascalName}s extends ${pascalName}Event {
 }
 
 /// Event to load a single $pascalName.
-class Load${pascalName} extends ${pascalName}Event {
-  const Load${pascalName}(this.id);
+class Load$pascalName extends ${pascalName}Event {
+  const Load$pascalName(this.id);
 
   final String id;
 
@@ -532,8 +532,8 @@ class Load${pascalName} extends ${pascalName}Event {
 }
 
 /// Event to create a $pascalName.
-class Create${pascalName} extends ${pascalName}Event {
-  const Create${pascalName}(this.entity);
+class Create$pascalName extends ${pascalName}Event {
+  const Create$pascalName(this.entity);
 
   final ${pascalName}Entity entity;
 
@@ -542,8 +542,8 @@ class Create${pascalName} extends ${pascalName}Event {
 }
 
 /// Event to update a $pascalName.
-class Update${pascalName} extends ${pascalName}Event {
-  const Update${pascalName}(this.entity);
+class Update$pascalName extends ${pascalName}Event {
+  const Update$pascalName(this.entity);
 
   final ${pascalName}Entity entity;
 
@@ -552,8 +552,8 @@ class Update${pascalName} extends ${pascalName}Event {
 }
 
 /// Event to delete a $pascalName.
-class Delete${pascalName} extends ${pascalName}Event {
-  const Delete${pascalName}(this.id);
+class Delete$pascalName extends ${pascalName}Event {
+  const Delete$pascalName(this.id);
 
   final String id;
 

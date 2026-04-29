@@ -1,5 +1,6 @@
 # Claude Code (except skills folder which should be in repo)
 .claude/*
+!.claude/rules.md
 !.claude/skills/
 
 # Dart/Flutter

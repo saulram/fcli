@@ -30,14 +30,28 @@ class ConsoleColor {
   static const String brightCyan = '\x1B[96m';
   static const String brightWhite = '\x1B[97m';
 
-  // Background colors
+  /// Black background ANSI code.
   static const String bgBlack = '\x1B[40m';
+
+  /// Red background ANSI code.
   static const String bgRed = '\x1B[41m';
+
+  /// Green background ANSI code.
   static const String bgGreen = '\x1B[42m';
+
+  /// Yellow background ANSI code.
   static const String bgYellow = '\x1B[43m';
+
+  /// Blue background ANSI code.
   static const String bgBlue = '\x1B[44m';
+
+  /// Magenta background ANSI code.
   static const String bgMagenta = '\x1B[45m';
+
+  /// Cyan background ANSI code.
   static const String bgCyan = '\x1B[46m';
+
+  /// White background ANSI code.
   static const String bgWhite = '\x1B[47m';
 }
 
@@ -156,11 +170,14 @@ class ConsoleUtils {
 
       if (input != null && input.isNotEmpty) {
         final selection = int.tryParse(input);
-        if (selection != null && selection >= 1 && selection <= options.length) {
+        if (selection != null &&
+            selection >= 1 &&
+            selection <= options.length) {
           return selection - 1;
         }
       }
-      error('Invalid selection. Please enter a number between 1 and ${options.length}.');
+      error(
+          'Invalid selection. Please enter a number between 1 and ${options.length}.');
     }
   }
 
@@ -190,7 +207,9 @@ class ConsoleUtils {
 
       for (final part in input.split(',')) {
         final selection = int.tryParse(part.trim());
-        if (selection != null && selection >= 1 && selection <= options.length) {
+        if (selection != null &&
+            selection >= 1 &&
+            selection <= options.length) {
           selections.add(selection - 1);
         } else {
           valid = false;
@@ -201,7 +220,8 @@ class ConsoleUtils {
       if (valid && selections.isNotEmpty) {
         return selections;
       }
-      error('Invalid selection. Please enter comma-separated numbers between 1 and ${options.length}.');
+      error(
+          'Invalid selection. Please enter comma-separated numbers between 1 and ${options.length}.');
     }
   }
 

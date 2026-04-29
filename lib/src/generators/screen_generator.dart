@@ -46,7 +46,8 @@ class ScreenGenerator {
     );
 
     if (verbose) {
-      ConsoleUtils.info('Generating screen: $pascalScreen in feature: $featureName');
+      ConsoleUtils.info(
+          'Generating screen: $pascalScreen in feature: $featureName');
     }
 
     if (dryRun) {

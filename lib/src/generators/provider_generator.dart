@@ -42,7 +42,8 @@ class ProviderGenerator {
     );
 
     if (verbose) {
-      ConsoleUtils.info('Generating provider: $pascalProvider in feature: $featureName');
+      ConsoleUtils.info(
+          'Generating provider: $pascalProvider in feature: $featureName');
     }
 
     if (dryRun) {
@@ -70,22 +71,30 @@ class ProviderGenerator {
 
   void _showDryRunOutput(String providersPath, String snakeProvider) {
     if (config.usesRiverpod) {
-      ConsoleUtils.muted('Would create: $providersPath/${snakeProvider}_notifier.dart');
-      ConsoleUtils.muted('Would create: $providersPath/${snakeProvider}_state.dart');
+      ConsoleUtils.muted(
+          'Would create: $providersPath/${snakeProvider}_notifier.dart');
+      ConsoleUtils.muted(
+          'Would create: $providersPath/${snakeProvider}_state.dart');
     } else if (config.usesBloc) {
-      ConsoleUtils.muted('Would create: $providersPath/${snakeProvider}_bloc.dart');
-      ConsoleUtils.muted('Would create: $providersPath/${snakeProvider}_event.dart');
-      ConsoleUtils.muted('Would create: $providersPath/${snakeProvider}_state.dart');
+      ConsoleUtils.muted(
+          'Would create: $providersPath/${snakeProvider}_bloc.dart');
+      ConsoleUtils.muted(
+          'Would create: $providersPath/${snakeProvider}_event.dart');
+      ConsoleUtils.muted(
+          'Would create: $providersPath/${snakeProvider}_state.dart');
     } else {
-      ConsoleUtils.muted('Would create: $providersPath/${snakeProvider}_provider.dart');
+      ConsoleUtils.muted(
+          'Would create: $providersPath/${snakeProvider}_provider.dart');
     }
   }
 
-  Future<void> _generateRiverpod(String providersPath, String providerName) async {
+  Future<void> _generateRiverpod(
+      String providersPath, String providerName) async {
     final snakeProvider = StringUtils.toSnakeCase(providerName);
 
     // Notifier
-    final notifierPath = p.join(providersPath, '${snakeProvider}_notifier.dart');
+    final notifierPath =
+        p.join(providersPath, '${snakeProvider}_notifier.dart');
     await FileUtils.writeFile(
       notifierPath,
       NotifierTemplate.generate(providerName, config),
@@ -129,10 +138,12 @@ class ProviderGenerator {
     ConsoleUtils.success('State created: $statePath');
   }
 
-  Future<void> _generateProvider(String providersPath, String providerName) async {
+  Future<void> _generateProvider(
+      String providersPath, String providerName) async {
     final snakeProvider = StringUtils.toSnakeCase(providerName);
 
-    final providerPath = p.join(providersPath, '${snakeProvider}_provider.dart');
+    final providerPath =
+        p.join(providersPath, '${snakeProvider}_provider.dart');
     await FileUtils.writeFile(
       providerPath,
       NotifierTemplate.generate(providerName, config),

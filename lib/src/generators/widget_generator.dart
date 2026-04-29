@@ -55,7 +55,8 @@ class WidgetGenerator {
     );
 
     if (verbose) {
-      ConsoleUtils.info('Generating widget: $pascalWidget in feature: $featureName');
+      ConsoleUtils.info(
+          'Generating widget: $pascalWidget in feature: $featureName');
     }
 
     if (dryRun) {
@@ -93,18 +94,22 @@ class WidgetGenerator {
     }
   }
 
-  String _generateContent(String widgetName, String featureName, WidgetType type) {
+  String _generateContent(
+      String widgetName, String featureName, WidgetType type) {
     switch (type) {
       case WidgetType.stateless:
         return WidgetTemplate.generateStateless(widgetName);
       case WidgetType.stateful:
         return WidgetTemplate.generateStateful(widgetName);
       case WidgetType.entityCard:
-        return WidgetTemplate.generateEntityCard(featureName, config, entityName: widgetName);
+        return WidgetTemplate.generateEntityCard(featureName, config,
+            entityName: widgetName);
       case WidgetType.entityListTile:
-        return WidgetTemplate.generateEntityListTile(featureName, config, entityName: widgetName);
+        return WidgetTemplate.generateEntityListTile(featureName, config,
+            entityName: widgetName);
       case WidgetType.entityForm:
-        return WidgetTemplate.generateEntityForm(featureName, config, entityName: widgetName);
+        return WidgetTemplate.generateEntityForm(featureName, config,
+            entityName: widgetName);
     }
   }
 

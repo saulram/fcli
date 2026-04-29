@@ -43,7 +43,8 @@ class TaskAddCommand extends Command<int> {
       ..addFlag(
         'agent',
         abbr: 'a',
-        help: 'Setup for AI agent (runs flutter pub get, creates .claude/TASK.md).',
+        help:
+            'Setup for AI agent (runs flutter pub get, creates .claude/TASK.md).',
         negatable: false,
       )
       ..addOption(
@@ -65,7 +66,8 @@ class TaskAddCommand extends Command<int> {
   String get description => 'Create a new task worktree with a branch.';
 
   @override
-  String get invocation => 'flg task add <name> [--type feat|fix|ref] [--agent]';
+  String get invocation =>
+      'flg task add <name> [--type feat|fix|ref] [--agent]';
 
   @override
   Future<int> run() async {
@@ -104,7 +106,8 @@ class TaskAddCommand extends Command<int> {
     }
 
     final taskType = TaskType.fromString(typeStr);
-    final baseBranch = baseBranchArg ?? await GitService.getMainBranch(repoRoot);
+    final baseBranch =
+        baseBranchArg ?? await GitService.getMainBranch(repoRoot);
     final branchName = '${taskType.branchPrefix}/$taskName';
 
     // Validate branch name

@@ -1,7 +1,7 @@
 import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
-/// Template for generating data/models/<feature>_model.dart
+/// Template for generating `data/models/{feature}_model.dart`.
 class ModelTemplate {
   ModelTemplate._();
 
@@ -20,9 +20,11 @@ class ModelTemplate {
     final name = entityName ?? featureName;
 
     if (config.useFreezed) {
-      return _generateFreezedModel(name, config.projectName, featureName, properties);
+      return _generateFreezedModel(
+          name, config.projectName, featureName, properties);
     } else {
-      return _generateManualModel(name, config.projectName, featureName, properties);
+      return _generateManualModel(
+          name, config.projectName, featureName, properties);
     }
   }
 

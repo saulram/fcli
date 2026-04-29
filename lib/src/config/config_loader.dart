@@ -11,6 +11,7 @@ import 'fcli_config.dart';
 class ConfigLoader {
   ConfigLoader._();
 
+  /// Default FLG configuration file name.
   static const String configFileName = 'flg.json';
 
   /// Gets the path to the config file in a directory.
@@ -59,9 +60,10 @@ class ConfigLoader {
 
     // Organization
     final org = ConsoleUtils.prompt(
-      'Organization (reverse domain)',
-      defaultValue: 'com.example',
-    ) ?? 'com.example';
+          'Organization (reverse domain)',
+          defaultValue: 'com.example',
+        ) ??
+        'com.example';
 
     // State management
     final stateIndex = ConsoleUtils.select(
@@ -111,9 +113,10 @@ class ConfigLoader {
 
     // Initial feature
     final initialFeature = ConsoleUtils.prompt(
-      'Initial feature name',
-      defaultValue: 'home',
-    ) ?? 'home';
+          'Initial feature name',
+          defaultValue: 'home',
+        ) ??
+        'home';
 
     ConsoleUtils.newLine();
 
@@ -158,7 +161,8 @@ class ConfigLoader {
     }
 
     if (!RegExp(r'^[a-z_][a-z0-9_]*$').hasMatch(config.projectName)) {
-      errors.add('Project name must be valid Dart package name (lowercase, underscores)');
+      errors.add(
+          'Project name must be valid Dart package name (lowercase, underscores)');
     }
 
     if (config.platforms.isEmpty) {
@@ -193,7 +197,8 @@ class ConfigLoader {
     final projectPath = findConfigPath(startPath);
     if (projectPath == null) {
       ConsoleUtils.error('Not in a flg project directory.');
-      ConsoleUtils.info('Run "flg init <project_name>" to create a new project.');
+      ConsoleUtils.info(
+          'Run "flg init <project_name>" to create a new project.');
       return null;
     }
     return projectPath;

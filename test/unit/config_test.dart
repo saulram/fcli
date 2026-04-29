@@ -113,16 +113,17 @@ void main() {
     });
 
     test('fromString returns default for unknown', () {
-      expect(
-          StateManagement.fromString('unknown'), equals(StateManagement.riverpod));
+      expect(StateManagement.fromString('unknown'),
+          equals(StateManagement.riverpod));
     });
   });
 
   group('RouterOption', () {
     test('fromString parses correctly', () {
-      expect(RouterOption.fromString('go_router'), equals(RouterOption.goRouter));
       expect(
-          RouterOption.fromString('auto_route'), equals(RouterOption.autoRoute));
+          RouterOption.fromString('go_router'), equals(RouterOption.goRouter));
+      expect(RouterOption.fromString('auto_route'),
+          equals(RouterOption.autoRoute));
     });
 
     test('fromString returns default for unknown', () {

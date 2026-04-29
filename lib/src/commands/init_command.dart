@@ -128,7 +128,8 @@ class InitCommand extends Command<int> {
       final flutterInstalled = await ProcessUtils.isFlutterInstalled();
       if (!flutterInstalled) {
         ConsoleUtils.error('Flutter is not installed or not in PATH.');
-        ConsoleUtils.info('Please install Flutter: https://flutter.dev/docs/get-started/install');
+        ConsoleUtils.info(
+            'Please install Flutter: https://flutter.dev/docs/get-started/install');
         return 1;
       }
     }

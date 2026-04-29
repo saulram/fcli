@@ -1,6 +1,6 @@
 import '../../utils/string_utils.dart';
 
-/// Template for generating domain/entities/<feature>_entity.dart
+/// Template for generating `domain/entities/{feature}_entity.dart`.
 class EntityTemplate {
   EntityTemplate._();
 

@@ -65,8 +65,12 @@ class ProcessUtils {
     );
 
     // Stream output
-    process.stdout.transform(const SystemEncoding().decoder).listen(stdout.write);
-    process.stderr.transform(const SystemEncoding().decoder).listen(stderr.write);
+    process.stdout
+        .transform(const SystemEncoding().decoder)
+        .listen(stdout.write);
+    process.stderr
+        .transform(const SystemEncoding().decoder)
+        .listen(stderr.write);
 
     return process.exitCode;
   }
@@ -234,7 +238,8 @@ class ProcessUtils {
       final result = await run('flutter', ['--version']);
       if (result.success) {
         // Parse first line: "Flutter 3.x.x • channel stable • ..."
-        final match = RegExp(r'Flutter (\d+\.\d+\.\d+)').firstMatch(result.stdout);
+        final match =
+            RegExp(r'Flutter (\d+\.\d+\.\d+)').firstMatch(result.stdout);
         return match?.group(1);
       }
       return null;
@@ -250,7 +255,8 @@ class ProcessUtils {
       if (result.success) {
         // Parse: "Dart SDK version: 3.x.x ..."
         final output = result.stdout.isNotEmpty ? result.stdout : result.stderr;
-        final match = RegExp(r'Dart SDK version: (\d+\.\d+\.\d+)').firstMatch(output);
+        final match =
+            RegExp(r'Dart SDK version: (\d+\.\d+\.\d+)').firstMatch(output);
         return match?.group(1);
       }
       return null;

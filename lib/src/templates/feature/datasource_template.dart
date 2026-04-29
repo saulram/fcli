@@ -1,7 +1,7 @@
 import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
-/// Template for generating data/datasources/<feature>_remote_datasource.dart
+/// Template for generating `data/datasources/{feature}_remote_datasource.dart`.
 class DataSourceTemplate {
   DataSourceTemplate._();
 

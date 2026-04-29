@@ -1,7 +1,7 @@
 import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
-/// Template for generating domain/usecases/<action>_<feature>_usecase.dart
+/// Template for generating `domain/usecases/{action}_{feature}_usecase.dart`.
 class UseCaseFeatureTemplate {
   UseCaseFeatureTemplate._();
 

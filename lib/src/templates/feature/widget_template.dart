@@ -1,7 +1,7 @@
 import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
-/// Template for generating presentation/widgets/<widget>_widget.dart
+/// Template for generating `presentation/widgets/{widget}_widget.dart`.
 class WidgetTemplate {
   WidgetTemplate._();
 

@@ -1,7 +1,7 @@
 import '../../config/fcli_config.dart';
 import '../../utils/string_utils.dart';
 
-/// Template for generating presentation/screens/<screen>_screen.dart
+/// Template for generating `presentation/screens/{screen}_screen.dart`.
 class ScreenTemplate {
   ScreenTemplate._();
 

@@ -272,7 +272,8 @@ class ProjectGenerator {
     );
 
     if (result.failed) {
-      ConsoleUtils.warning('flutter pub get failed - you may need to run it manually');
+      ConsoleUtils.warning(
+          'flutter pub get failed - you may need to run it manually');
       if (verbose) {
         ConsoleUtils.muted(result.stderr);
       }
@@ -292,8 +293,10 @@ class ProjectGenerator {
     );
 
     if (result.failed) {
-      ConsoleUtils.warning('build_runner failed - you may need to run it manually');
-      ConsoleUtils.muted('Run: dart run build_runner build --delete-conflicting-outputs');
+      ConsoleUtils.warning(
+          'build_runner failed - you may need to run it manually');
+      ConsoleUtils.muted(
+          'Run: dart run build_runner build --delete-conflicting-outputs');
       if (verbose) {
         ConsoleUtils.muted(result.stderr);
       }
